@@ -1,0 +1,214 @@
+{{!-- <div
+  style="font-family: Lato;
+  font-size: 1.5rem;
+  text-align: center;
+  box-sizing: border-box;
+  color: #333;"
+>
+  <div
+    style=" border: solid 1px #ccc;
+    margin: 10px auto;
+    padding: 20px 30px;
+    display: inline-block;
+    box-shadow: 0 0 4px #ccc;
+    background-color: #FAF8F8;
+    overflow: hidden;
+    position: relative;
+    max-width: 450px;"
+  >
+    <button class="close">×</button>
+    <h3
+      style="margin: 0 0 10px;
+      padding: 0;
+      line-height: 1.25;"
+    >Please enter the 4-digit verification code we sent via SMS:</h3>
+    <span style="font-size: 90%;">(we want to make sure it's you before we contact our movers)</span>
+    <div style=" max-width: 240px;
+      margin: 25px auto 0;">
+      <input style="margin: 0 5px;
+        text-align: center;
+        line-height: 80px;
+        font-size: 50px;
+        border: solid 1px #ccc;
+        box-shadow: 0 0 5px #ccc "
+        type="text"
+        maxLength="1"
+        size="1"
+        min="0"
+        max="9"
+        pattern="[0-9]{1}"
+      />
+      <input style="margin: 0 5px;
+        text-align: center;
+        line-height: 80px;
+        font-size: 50px;
+        border: solid 1px #ccc;
+        box-shadow: 0 0 5px #ccc "
+        type="text"
+        maxLength="1"
+        size="1"
+        min="0"
+        max="9"
+        pattern="[0-9]{1}"
+      /><input style="margin: 0 5px;
+        text-align: center;
+        line-height: 80px;
+        font-size: 50px;
+        border: solid 1px #ccc;
+        box-shadow: 0 0 5px #ccc "
+        type="text"
+        maxLength="1"
+        size="1"
+        min="0"
+        max="9"
+        pattern="[0-9]{1}"
+      /><input style="margin: 0 5px;
+        text-align: center;
+        line-height: 80px;
+        font-size: 50px;
+        border: solid 1px #ccc;
+        box-shadow: 0 0 5px #ccc "
+        type="text"
+        maxLength="1"
+        size="1"
+        min="0"
+        max="9"
+        pattern="[0-9]{1}"
+      />
+      <button class="btn btn-primary btn-embossed">Verify</button>
+    </div>
+
+    <div>
+      Didn't receive the code?<br />
+      <a href="#">Send code again</a><br />
+      <a href="#">Change phone number</a>
+    </div>
+    <img
+      src="http://jira.moovooz.com/secure/attachment/10424/VmVyaWZpY2F0aW9uLnN2Zw=="
+      alt="test"
+    />
+  </div>
+</div> --}}
+
+{{!-- <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Otp-Verification</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body> --}}
+    <div class="d-flex justify-content-center align-items-center continer">
+      <div class=" py-5 px-3" 
+      style=" width: 350px;
+          padding: 10px;
+          border-radius: 20px;
+          background: #d4efdf;
+          border: none;
+          position: relative;">
+        <h5 class="m-0 text-center">Mobile phone verification</h5><br>
+        {{!-- <span class="" style=" color: #cd5c5c;
+                              font-size: 15px;"
+          ><b>Enter the code we just sent on your phone</b>
+          <b style="color:#145a32;">+91 09899619282</b>
+        </span> --}}
+         <h6 class="text-center" >Please enter the one time password <br> to verify your account</h6>
+         <h4 style="color: red;" class="text-center otperror" id="error">INVALID OTP</h4>
+        <div class="d-flex flex-row mt-5" id="otp">
+          <input type="text" class="form-control" name="otp" id="first" maxlength="1" style=" margin-right: 12px;" autofocus="" />
+          <input type="text" class="form-control" name="otp" id="second" maxlength="1" style=" margin-right: 12px;" />
+          <input type="text" class="form-control" name="otp" id="third" maxlength="1" style=" margin-right: 12px;" />
+          <input type="text" class="form-control" name="otp" id="fourth" maxlength="1" style=" margin-right: 12px;" />
+          <input
+           class="m-2 text-center form-control rounded" style="display: none;" type="text" id="phonnumber" name="phonenumber" value="{{phoneNumber}}" />
+        </div>
+        <div class="text-center mt-5">
+          <span class="d-block mobile-text" id="countdown"></span>
+          <a onclick="otpresent()"><span class="d-block mobile-text" id="resend"></span></a>
+        </div>
+         <div class="mt-4 d-flex justify-content-center"> <button  id="btn-submit" class="btn btn-danger px-4 validate" onclick ="otpsubmits()">VERIFY</button> </div>
+            </div>
+      </div>
+    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+let timerOn = true;
+function timer(remaining) {
+  var m = Math.floor(remaining / 60);
+  var s = remaining % 60;
+  m = m < 10 ? "0" + m : m;
+  s = s < 10 ? "0" + s : s;
+  document.getElementById("countdown").innerHTML = `Time left: ${m} : ${s}`;
+  remaining -= 1;
+  if (remaining >= 0 && timerOn) {
+    setTimeout(function () {
+      timer(remaining);
+    }, 1000);
+    document.getElementById("resend").innerHTML = `
+    `;
+    return;
+  }
+  if (!timerOn) {
+    return;
+  }
+  document.getElementById("resend").innerHTML = `Don't receive the code? 
+  <span class="font-weight-bold text-color cursor" style="cursor: pointer;" onclick="timer(60)">Resend
+  </span>`;
+}
+timer(60);
+
+
+function otpsubmits(){
+  console.log("fk")
+ 
+    var first = document.getElementById("first").value;
+        var second = document.getElementById("second").value;
+        var third = document.getElementById("third").value;
+         var fourth = document.getElementById("fourth").value;
+         
+         var otpnumber = first+second+third+fourth
+         var phoneNumber = document.getElementById("phonnumber").value;
+
+
+$.ajax({
+    url:'/otplogin?phonenumber='+phoneNumber+'&otpnumber='+otpnumber,
+    method:'get',
+    success:(response)=>{
+        if(response){
+            window.location.replace("/");
+        }else{
+            document.getElementById("error").classList.remove("otperror");
+        }
+    }
+})
+
+
+}
+function otpresent(){
+
+  $.ajax({
+    url:'/resendotp',
+    method:'get',
+    success:(response)=>{
+        if(response){
+            window.location.replace("/otp-verify");
+        }else{
+           window.location.replace("/otp-verify"); 
+        }
+    }
+})
+
+}
+
+</script>
+
+    {{!-- <script src="main.js"></script>
+  </body>
+</html> --}}

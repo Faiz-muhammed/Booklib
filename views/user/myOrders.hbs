@@ -1,0 +1,126 @@
+
+
+<link rel="stylesheet" href="user/stylesheets/profile.css">
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container mb-4 mt-4">
+    <div class="row">   
+        <div class="col-lg-4 pb-5">
+            <!-- Account Sidebar-->
+            <div class="author-card pb-3">
+                <div class="author-card-cover" style="background-image: ;"><a class="btn btn-style-1 btn-white btn-sm" href="#" data-toggle="tooltip" title="" data-original-title="You currently have 290 Reward points to spend"><i class="fa fa-award text-md"></i>&nbsp;</a></div>
+                <div class="author-card-profile">
+                    <div class="author-card-avatar "><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Daniel Adams">
+                    </div>
+                    <div class="author-card-details">
+                        <h2 class="ml-4">Fuad ihithisam</h2>
+                        
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                <h6>Email:{{userdet.Email}}</h6>
+                </div >
+                <div class="d-flex justify-content-center">
+                <h6>Mobile:{{userdet.Mobile}}</h6>
+                </div >
+                  
+            </div>
+            <div class="wizard">
+                <nav class="list-group list-group-flush">
+                    <a class="list-group-item " href="/myOrders">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div><i class="fa fa-shopping-bag mr-1 text-muted"></i>
+                                <div class="d-inline-block font-weight-medium text-uppercase">Orders List</div>
+                            </div><span class="badge badge-secondary"></span>
+                        </div>
+                    </a><a class="list-group-item" href="#" target="__blank">
+                     <i class="fa fa-user text-muted"></i>Profile Settings</a>
+                     <a class="list-group-item" href="/addaddress"><i class="fa fa-map-marker text-muted"></i> Add Address</a>
+                    {{!-- <a class="list-group-item" href="#">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div><i class="fa fa-heart mr-1 text-muted"></i>
+                                <div class="d-inline-block font-weight-medium text-uppercase">My Wishlist</div>
+                            </div><span class="badge badge-secondary">3</span>
+                        </div>
+                    </a> --}}
+                    <a class="list-group-item" href="#" target="__blank">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div><i class="fa fa-tag mr-1 text-muted"></i>
+                                <div class="d-inline-block font-weight-medium text-uppercase">My Tickets</div>
+                            </div><span class="badge badge-secondary"></span>
+                        </div>
+                    </a>
+                </nav>
+            </div>
+        </div>
+        <!-- Wishlist-->
+        <div class="col-lg-8 pb-5">
+            <!-- Item-->
+           {{#each myOrders}}
+            <div class="cart-item d-md-flex justify-content-between">
+                <div class="px-3 my-3">
+                    <a class="cart-item-product" href="#">
+                        <div class="cart-item-product-thumb "><img class="mt-4" src="/product-images/{{this.item}}1.png" alt="Product"></div>
+                        <div class="cart-item-product-info">
+                            <h4 class="cart-item-product-title">{{this.product.product_name}}</h4>
+                            <div class="text-lg text-body font-weight-medium pb-1">Price: ₹{{this.product.price}}</div>
+                            <h6>Quantity:{{this.quantity}}</h6>
+                            <h6>Ordered On :{{this.date}}</h6>
+                            <span>Status:<span class="text-success font-weight-medium">{{this.status}}</span></span>
+                            {{#if this.cancelled}}
+                            <button class="btn btn-primary bg-danger border-0" disabled onclick="cancelOrder('{{this.item}}','{{this._id}}')" type="submit">ORDER CANCELLED</button>
+                            {{else}}
+                             <button class="btn btn-primary bg-danger border-0" onclick="cancelOrder('{{this.item}}','{{this._id}}')" type="submit">CANCEL ORDER</button>
+                             {{/if}}
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {{/each}}
+         
+           
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
+    <script src="user/javascripts/jquery-3.2.1.min.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    function cancelOrder(proId,orderId){
+        
+        swal({
+        title: "Are you sure?",
+        text: "Once confirmed ,the product will be removed from your Order!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+             $.ajax({
+                   url:'/cancelOrder',
+                   data:{
+                   orderId:orderId,
+                   proId:proId
+                   },
+                    method:'post',
+                    success:(response)=>{
+                     swal("Order cancelled!", {
+                         icon: "success",
+                       });
+         
+                    location.reload()
+                  }
+                })
+
+       }
+
+})
+    }
+
+    
+</script>

@@ -1,0 +1,62 @@
+
+     
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
+   
+    <div class="card">
+  <div class="card-body">
+    <h4 class="card-title">DAILY SALES REPORT</h4>
+   
+   <table id="example" class="table table-striped display nowrap" style="width:100%">  
+        <thead>
+            <tr class="text-center">
+                <th>Sl.no</th>
+                <th>Date</th>
+                <th>Product count</th>
+                <th>Revenue</th>
+                {{!-- <th>Start date</th>
+                <th>Salary</th> --}}
+            </tr>
+        </thead>
+        <tbody>
+            {{#each sale}}
+            <tr class="text-center">
+                <td>{{@index}}</td>
+                <td>{{this._id}}</td>
+                <td>{{this.prodCount}}</td>
+                <td>{{this.Revenue}}</td>
+                {{!-- <td>2011/04/25</td>
+                <td>$320,800</td> --}}
+            </tr>
+            {{/each}}
+           
+        </tbody>
+   </table>
+   
+  </div>
+</div>
+   
+   
+
+       <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+       <!-- <script src="user/javascripts/jquery-3.2.1.min.js"></script> -->
+       <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+       
+       <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" defer></script>
+       <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js" defer></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" defer></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" defer></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" defer></script>
+       <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js" defer></script>
+       <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js" defer></script>
+
+        <script>
+          $(document).ready(function(){
+          $('#example').DataTable({
+        dom:'Bfrtip',
+        buttons:[
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+});
+        </script>

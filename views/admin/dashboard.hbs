@@ -1,0 +1,656 @@
+
+
+{{!-- <div class="main-panel"> --}}
+          {{!-- <div class="content-wrapper"> --}}
+            {{!-- <div class="row" id="proBanner">
+              <div class="col-12">
+                <span class="d-flex align-items-center purchase-popup">
+                  <p>
+                    Like what you see? Check out our premium version for more.
+                  </p>
+                  <a
+                    href="https://github.com/BootstrapDash/ConnectPlusAdmin-Free-Bootstrap-Admin-Template"
+                    target="_blank"
+                    class="btn ml-auto download-button"
+                    >Download Free Version</a
+                  >
+                  <a
+                    href="http://www.bootstrapdash.com/demo/connect-plus/jquery/template/"
+                    target="_blank"
+                    class="btn purchase-button"
+                    >Upgrade To Pro</a
+                  >
+                  <i class="mdi mdi-close" id="bannerClose"></i>
+                </span>
+              </div>
+            </div> --}}
+            <div class="d-xl-flex justify-content-between align-items-start">
+              <h2 class="text-dark font-weight-bold mb-2">
+                Overview dashboard
+              </h2>
+              <div
+                class="
+                  d-sm-flex
+                  justify-content-xl-between
+                  align-items-center
+                  mb-2
+                "
+              >
+                <div
+                  class="btn-group bg-white p-3"
+                  role="group"
+                  aria-label="Basic example"
+                >
+                  <button
+                    type="button"
+                    class="btn btn-link text-light py-0 border-right"
+                  >
+                    7 Days
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-link text-dark py-0 border-right"
+                  >
+                    1 Month
+                  </button>
+                  <button type="button" class="btn btn-link text-light py-0">
+                    3 Month
+                  </button>
+                </div>
+                <div class="dropdown ml-0 ml-md-4 mt-2 mt-lg-0">
+                  <button
+                    class="
+                      btn
+                      bg-white
+                      dropdown-toggle
+                      p-3
+                      d-flex
+                      align-items-center
+                    "
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <i class="mdi mdi-calendar mr-1"></i>24 Mar 2019 - 24 Mar
+                    2019
+                  </button>
+                  <div
+                    class="dropdown-menu dropdown-menu-right"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    <h6 class="dropdown-header">Settings</h6>
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated link</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div
+                  class="
+                    d-sm-flex
+                    justify-content-between
+                    align-items-center
+                    transaparent-tab-border
+                    {
+                  "
+                >
+                  {{!-- <ul class="nav nav-tabs tab-transparent" role="tablist">
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        id="home-tab"
+                        data-toggle="tab"
+                        href="#"
+                        role="tab"
+                        aria-selected="true"
+                        >Users</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link active"
+                        id="business-tab"
+                        data-toggle="tab"
+                        href="#business-1"
+                        role="tab"
+                        aria-selected="false"
+                        >Business</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        id="performance-tab"
+                        data-toggle="tab"
+                        href="#"
+                        role="tab"
+                        aria-selected="false"
+                        >Performance</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        id="conversion-tab"
+                        data-toggle="tab"
+                        href="#"
+                        role="tab"
+                        aria-selected="false"
+                        >Conversion</a
+                      >
+                    </li>
+                  </ul> --}}
+                  {{!-- <div class="d-md-block d-none">
+                    <a href="#" class="text-light p-1"
+                      ><i class="mdi mdi-view-dashboard"></i
+                    ></a>
+                    <a href="#" class="text-light p-1"
+                      ><i class="mdi mdi-dots-vertical"></i
+                    ></a>
+                  </div> --}}
+                </div>
+                <div class="tab-content tab-transparent-content">
+                  <div
+                    class="tab-pane fade show active"
+                    id="business-1"
+                    role="tabpanel"
+                    aria-labelledby="business-tab"
+                  >
+                    <div class="row">
+                      <div
+                        class="
+                          col-xl-3 col-lg-6 col-sm-6
+                          grid-margin
+                          stretch-card
+                        "
+                      >
+                        <div class="card">
+                          <div class="card-body text-center">
+                            <h5 class="mb-2 text-dark font-weight-normal">
+                              Orders Delivered
+                            </h5>
+                            <h2 class="mb-4 text-dark font-weight-bold">
+                              {{orderCount}}
+                            </h2>
+                            <div
+                              class="
+                                dashboard-progress dashboard-progress-1
+                                d-flex
+                                align-items-center
+                                justify-content-center
+                                item-parent
+                              "
+                            >
+                              <i
+                                class="
+                                  mdi mdi-clipboard-check
+                                  icon-md
+                                  absolute-center
+                                  text-dark
+                                "
+                              ></i>
+                            </div>
+                            <!-- <p class="mt-4 mb-0"></p>
+                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">
+                             
+                            </h3> -->
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="
+                          col-xl-3 col-lg-6 col-sm-6
+                          grid-margin
+                          stretch-card
+                        "
+                      >
+                        <div class="card">
+                          <div class="card-body text-center">
+                            <h5 class="mb-2 text-dark font-weight-normal">
+                              Users
+                            </h5>
+                            <h2 class="mb-4 text-dark font-weight-bold">
+                              {{usercount}}
+                            </h2>
+                            <div
+                              class="
+                                dashboard-progress dashboard-progress-2
+                                d-flex
+                                align-items-center
+                                justify-content-center
+                                item-parent
+                              "
+                            >
+                              <i
+                                class="
+                                  mdi mdi-account-circle
+                                  icon-md
+                                  absolute-center
+                                  text-dark
+                                "
+                              ></i>
+                            </div>
+                            <!-- <p class="mt-4 mb-0"></p>
+                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">
+                              10
+                            </h3> -->
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="
+                          col-xl-3 col-lg-6 col-sm-6
+                          grid-margin
+                          stretch-card
+                        "
+                      >
+                        <div class="card">
+                          <div class="card-body text-center">
+                            <h5 class="mb-2 text-dark font-weight-normal">
+                              Revenue
+                            </h5>
+                            <h2 class="mb-4 text-dark font-weight-bold">
+                              ₹{{revenue}}
+                            </h2>
+                            <div
+                              class="
+                                dashboard-progress dashboard-progress-3
+                                d-flex
+                                align-items-center
+                                justify-content-center
+                                item-parent
+                              "
+                            >
+                              <i
+                                class="
+                                  mdi mdi-sack
+                                  icon-md
+                                  absolute-center
+                                  text-dark
+                                "
+                              ></i>
+                            </div>
+                            <p class="mt-4 mb-0"></p>
+                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">
+                             
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="
+                          col-xl-3 col-lg-6 col-sm-6
+                          grid-margin
+                          stretch-card
+                        "
+                      >
+                        <div class="card">
+                          <div class="card-body text-center">
+                            <h5 class="mb-2 text-dark font-weight-normal">
+                              Total Products
+                            </h5>
+                            <h2 class="mb-4 text-dark font-weight-bold">
+                              {{proCount}}
+                            </h2>
+                            <div
+                              class="
+                                p-4
+                                dashboard-progress dashboard-progress-4
+                                d-flex
+                                align-items-center
+                                justify-content-center
+                                item-parent
+                              "
+                            >
+                              <i
+                                class="
+                                  
+                                  mdi mdi-cube
+                                  icon-md
+                                  absolute-center
+                                  text-dark
+                                "
+                              ></i>
+                            </div>
+                            <p class="mt-4 mb-0"></p>
+                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">
+                            
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 grid-margin">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div
+                                  class="
+                                    d-flex
+                                    justify-content-between
+                                    align-items-center
+                                    mb-4
+                                  "
+                                >
+                                  
+                                  
+                                </div>
+                              </div>
+                              <!-- <div
+                                class="
+                                  col-lg-3 col-sm-4
+                                  grid-margin grid-margin-lg-0
+                                "
+                              > -->
+                                <!-- <div class="wrapper pb-5 border-bottom">
+                                  <div
+                                    class="
+                                      text-wrapper
+                                      d-flex
+                                      align-items-center
+                                      justify-content-between
+                                      mb-2
+                                    "
+                                  >
+                                    <p class="mb-0 text-dark">Total Profit</p>
+                                    <span class="text-success"
+                                      ><i class="mdi mdi-arrow-up"></i
+                                      >2.95%</span
+                                    >
+                                  </div>
+                                  <h3 class="mb-0 text-dark font-weight-bold"> </h3>
+                                  {{!-- new chart --}}
+                                 
+                                </div> -->
+                               
+                                <!-- <div class="wrapper pt-5">
+                                  <div
+                                    class="
+                                      text-wrapper
+                                      d-flex
+                                      align-items-center
+                                      justify-content-between
+                                      mb-2
+                                    "
+                                  >
+                                    <p class="mb-0 text-dark">Expenses</p>
+                                    <span class="text-success"
+                                      ><i class="mdi mdi-arrow-up"></i
+                                      >52.95%</span
+                                    >
+                                  </div>
+                                  <h3 class="mb-4 text-dark font-weight-bold">
+                                    $ 59565
+                                  </h3>
+                                  <canvas id="total-expences"></canvas>
+                                </div> -->
+                              <!-- </div> -->
+                              <div class="col-lg-6 col-sm-12 grid-margin grid-margin-lg-0" >
+                                <h4 class="card-title mb-0"> Daily Sales</h4>
+                              <canvas id="myChart" width="300" height="300"></canvas>
+                             
+                              </div>
+
+                              <div class="col-lg-6 col-sm-12 grid-margin grid-margin-lg-0">
+                                <h4 class="card-title mb-0"> Category Sales</h4><br>
+                            <canvas id="myChart1" width="300" height="300"></canvas>
+
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4 grid-margin stretch-card">
+                        <div class="card card-danger-gradient">
+                          <div class="card-body mb-4">
+                            <h4 class="card-title text-white">
+                              Account Retention
+                            </h4>
+                            <canvas id="account-retension"></canvas>
+                          </div>
+                          <div class="card-body bg-white pt-4">
+                            <div class="row pt-4">
+                              <div class="col-sm-6">
+                                <div
+                                  class="text-center border-right border-md-0"
+                                >
+                                  <h4>Conversion</h4>
+                                  <h1
+                                    class="text-dark font-weight-bold mb-md-3"
+                                  >
+                                    $306
+                                  </h1>
+                                </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="text-center">
+                                  <h4>Cancellation</h4>
+                                  <h1 class="text-dark font-weight-bold">
+                                    $1,520
+                                  </h1>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-8 grid-margin stretch-card">
+
+                        {{!-- <div class="col-lg-6 grid-margin stretch-card"> --}}
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Best selling products</h4>
+                    {{!-- <p class="card-description"> Add class <code>.table</code> --}}
+                    </p>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Sl.no</th>
+                          <th>Product name</th>
+                          <th>Quantity</th>
+                          {{!-- <th></th> --}}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {{#each bestSell}}
+                        <tr>
+                          <td>{{@index}}</td>
+                          <td>{{this._id}}</td>
+                          <td>{{this.totalQty}}</td>
+                          {{!-- <td><label class="badge badge-danger">Pending</label></td> --}}
+                        </tr>
+                        {{/each}}
+                       
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              {{!-- </div> --}}
+                        {{!-- <div class="card">
+                          <div class="card-body">
+                            <div class="d-xl-flex justify-content-between mb-2">
+                              <h4 class="card-title">Page views analytics</h4>
+                              <div
+                                class="graph-custom-legend primary-dot"
+                                id="pageViewAnalyticLengend"
+                              ></div>
+                            </div>
+                            <!-- <canvas id="myChart" width="400" height="400"></canvas> -->
+                          </div>
+                        </div> --}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="footer-inner-wraper">
+              <div
+                class="
+                  d-sm-flex
+                  justify-content-center justify-content-sm-between
+                "
+              >
+                <span
+                  class="
+                    text-muted
+                    d-block
+                    text-center text-sm-left
+                    d-sm-inline-block
+                  "
+                  >Copyright © bootstrapdash.com 2020</span
+                >
+                <span
+                  class="
+                    float-none float-sm-right
+                    d-block
+                    mt-1 mt-sm-0
+                    text-center
+                  "
+                >
+                  Free
+                  <a href="https://www.bootstrapdash.com/" target="_blank"
+                    >Bootstrap dashboard templates</a
+                  >
+                  from Bootstrapdash.com</span
+                >
+              </div>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="admin/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+     <script src="/user/javascripts/jquery-3.2.1.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js"></script>
+
+    <!-- Plugin js for  page -->
+    <script src="/admin/vendors/chart.js/Chart.min.js"></script>
+    <script src="/admin/vendors/jquery-circle-progress/js/circle-progress.min.js"></script>
+    <!-- End plugin js for page -->
+    <!-- inject:js -->
+    <script src="/admin/js/off-canvas.js"></script>
+    <script src="admin/js/hoverable-collapse.js"></script>
+    <script src="admin/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for page -->
+    <script src="/admin/js/dashboard.js"></script>
+    <!-- End custom js for page -->
+    <script src="https://cdnjs.com/libraries/Chart.js"></script>
+
+   
+   
+   
+   
+   <script type="text/javascript">
+     
+    $(document).ready(function(){ 
+     let dailyTotal= {{dailyAmount}}
+     $.ajax({
+       url:'/admin/getChartdata',
+       method:'get',
+       success:(chartDatas)=>{
+      
+     const ctx = document.getElementById('myChart').getContext('2d');
+     const myChart = new Chart(ctx, {
+          type: 'bar',
+          data:{
+              labels:chartDatas.dateofDays,
+              datasets: [{
+                  label: 'daily sales',
+                  data: dailyTotal,
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.9)',
+                      'rgba(54, 162, 235, 0.9)',
+                      'rgba(255, 206, 86, 0.9)',
+                      'rgba(75, 192, 192, 0.9)',
+                      'rgba(153, 102, 255, 0.9)',
+                      'rgba(255, 159, 64, 0.9)'
+                  ],
+                  borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+             scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+// second chart
+
+const ctx1 = document.getElementById('myChart1');
+const myChart1 = new Chart(ctx1, {
+    type: 'pie',
+    data: {
+        labels: chartDatas.categoryName,
+        datasets: [{
+            label: '# of Votes',
+            data: chartDatas.categoryAmount,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.9)',
+                'rgba(54, 162, 235, 0.9)',
+                'rgba(255, 206, 86, 0.9)',
+                'rgba(75, 192, 192, 0.9)',
+                'rgba(153, 102, 255, 0.9)',
+                'rgba(255, 159, 64, 0.9)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+ }
+     })
+})
+
+    </script>

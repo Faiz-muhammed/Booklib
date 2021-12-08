@@ -1,0 +1,141 @@
+
+<div class="row d-flex justify-content-center p-5">
+  <div class="col-md-8 mb-4">
+    <div class="card mb-4">
+      <div class="card-header py-3">
+        <h5 class="mb-0">EDIT ADDRESS</h5>
+        <div class="d-flex justify-content-center">
+          {{#if addressExist}}
+          <p class="text-danger">This address already exist</p>
+          {{/if}}
+        </div>
+       
+      </div>
+      <div class="card-body">
+        <form action="/editaddressData" id="editaddress" method="post">
+        {{#each address}}
+          <!-- 2 column grid layout with text inputs for the first and last names -->
+          <div class="form-outline mb-4">
+            <input type="text" id="form7Exampl" value="{{this.address.addressId}}" name="addressId" class="form-control" hidden />
+            <label class="form-label"  for="form7Example3"></label>
+          </div>
+
+           <div class="form-outline mb-4">
+            <input type="text" id="form7Example3" value="{{this.address.name}}" name="name" class="form-control" />
+            <label class="form-label"  for="form7Example3">Full name</label>
+          </div>
+            
+           
+          <!-- Text input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="form7Example3" value="{{this.address.house}}" name="house" class="form-control" />
+            <label class="form-label" for="form7Example3">House/Building number</label>
+          </div>
+
+          <!-- Text input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="form7Example4" value="{{this.address.street}}" name="street" class="form-control" />
+            <label class="form-label" for="form7Example4">Street/locality</label>
+          </div>
+
+          <div class="form-outline mb-4">
+            <input type="text" id="form7Example4" value="{{this.address.district}}" name="district" class="form-control" />
+            <label class="form-label" for="form7Example4">District/City</label>
+          </div>
+
+           <div class="form-outline mb-4">
+            <input type="text" id="form7Example4" value="{{this.address.state}}" name="state" class="form-control" />
+            <label class="form-label" for="form7Example4">State</label>
+          </div>
+
+          <!-- Email input -->
+          
+
+          <!-- Number input -->
+          <div class="form-outline mb-4">
+            <input type="number" id="form7Example6" value="{{this.address.phoneNumber}}" name="phoneNumber" class="form-control" />
+            <label class="form-label" for="form7Example6">Phone</label>
+          </div>
+
+          {{/each}}
+
+          <!-- Checkbox -->
+          <div class="form-check d-flex justify-content-center mb-2">
+           <input class="btn btn-primary" type="submit" value="Submit">
+           
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  
+</div>
+
+<script src="/user/javascripts/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script>
+  // form validation
+
+$("#editaddress").validate({
+    rules:{
+      name:{
+            required:true
+        },
+        house:{
+            required:true
+            
+        },
+        street:{
+            required:true,
+
+        },
+        
+        district:{
+            required:true,
+        },
+      state:{
+            required:true
+        },
+        phoneNumber:{
+          required:true,
+          number:true
+        }
+        
+        
+    },
+    messages:{
+        name:{
+            required: 'fullname is required'
+        },
+        house:{
+            required: 'House no. is required'
+        },
+        street:{
+            required:'Street name is required'
+
+        },
+        district:{
+            required: 'District is required'
+        },
+        state:{
+            required: 'state is required'
+        },
+         phoneNumber:{
+          required:'Phone number is required'
+        
+        }
+        
+
+
+
+    },
+    highlight: function (element) {
+                $(element).parent().addClass('error')
+            },
+            unhighlight: function (element) {
+                $(element).parent().removeClass('error')
+            }
+});
+</scrip

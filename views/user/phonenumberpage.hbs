@@ -1,0 +1,20 @@
+<section class="vh-100" style="background-color: #cfcfcfe5;"></section>
+<div class="form-group bg-light" style="width: 30%;position:fixed;top:26%;right:35%;border-radius: 1rem;">
+<form action="/phonenumberpage" method="post" class="p-2" style="" >
+
+
+    <label class="mt-2" style="font-size: 1.4rem;" > <span style="font-size: 1rem;"></span></label>
+    <div class="d-flex justify-content-center"><p class="">ENTER YOUR MOBILE NUMBER</p></div>
+    {{#if phonenumberExistError}}
+     <p class="text-danger d-flex justify-content-center">Mobile number not registered</p>
+    {{/if}}
+    
+    <input type="number" class="form-control mt-3"  name="number">
+    <div class="d-flex justify-content-center">
+      <button type="submit" style="background-color: #508bfc;width:80%;"  class="btn mt-4  mb-5 text-light">Continue</button>
+      </div>
+  <p style="display:inline-block">don't have an account</p>  <a href="/register" class="text-primary">Create An Account</a>
+</form>
+
+ </div>
+ </section>

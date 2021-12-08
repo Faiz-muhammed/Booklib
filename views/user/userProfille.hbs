@@ -1,0 +1,269 @@
+
+<link rel="stylesheet" href="user/stylesheets/profile.css">
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container mb-4 mt-4">
+    <div class="row">
+        <div class="col-lg-4 pb-5">
+            <!-- Account Sidebar-->
+            <div class="author-card pb-3">
+                <div class="author-card-cover" style="background-image: ;"><a class="btn btn-style-1 btn-white btn-sm" href="#" data-toggle="tooltip" title="" data-original-title="You currently have 290 Reward points to spend"><i class="fa fa-award text-md"></i>&nbsp;</a></div>
+                <div class="author-card-profile">
+                    <div class="author-card-avatar "><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Daniel Adams">
+                    </div>
+                    <div class="author-card-details">
+                        <h2 class="ml-4">{{userdet.Username}}</h2>
+                        
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                <h6>Email:{{userdet.Email}}</h6>
+                </div >
+                <div class="d-flex justify-content-center">
+                <h6>Mobile:{{userdet.Mobile}}</h6>
+                </div >
+                  
+            </div>
+            <div class="wizard">
+                <nav class="list-group list-group-flush">
+                    <a class="list-group-item " href="/myOrders">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div><i class="fa fa-shopping-bag mr-1 text-muted"></i>
+                                <div class="d-inline-block font-weight-medium text-uppercase">Orders List</div>
+                            </div>
+                        </div>
+                    </a><a class="list-group-item" href="#" target="__blank">
+                     <i class="fa fa-user text-muted"></i>Profile Settings</a>
+                     <a class="list-group-item" href="/addaddress"><i class="fa fa-map-marker text-muted"></i> Add Address</a>
+                    {{!-- <a class="list-group-item" href="#">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div><i class="fa fa-heart mr-1 text-muted"></i>
+                                <div class="d-inline-block font-weight-medium text-uppercase">My Wishlist</div>
+                            </div><span class="badge badge-secondary">3</span>
+                        </div>
+                    </a> --}}
+                    <a class="list-group-item" data-toggle="modal" data-target="#modalRegisterForm" href="#" target="__blank">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div><i class="fa fa-tag mr-1 text-muted"></i>
+                                <div class="d-inline-block font-weight-medium text-uppercase">Change Password</div>
+                            </div>
+                        </div>
+                    </a>
+                </nav>
+            </div>
+        </div>
+        <!-- Wishlist-->
+        <div class="col-lg-8 pb-5">
+            <!-- Item-->
+            {{#if pwdNotmatch}}
+            <h4 class="text-danger">The password does not match</h4>
+            {{/if}}
+            {{#each addresses}}
+            <div class="cart-item d-md-flex justify-content-between"><span onclick="addressDelete('{{this.address.addressId}}')" class="remove-item"><i class="fa fa-times"></i></span>
+                <div class="px-3 my-3">
+                    <a class="cart-item-product" href="#">
+                        
+                        <div class="cart-item-product-info">
+                            <h4 class="cart-item-product-title">DEFAULT ADDRESS</h4>
+                            <div class="text-lg text-body font-weight-medium pb-1">{{this.address.name}}</div>
+                            <div class="text-lg text-body font-weight-medium pb-1">{{this.address.house}},{{this.address.street}}</div>
+                            <div class="text-lg text-body font-weight-medium pb-1">{{this.address.district}}</div>
+                            <div class="text-lg text-body font-weight-medium pb-1">{{this.address.state}}</div>
+                        </div>
+                    </a>
+                       <hr style="width:100%;">
+                       <br>
+                       
+                       <div><a href="/editAddress?id={{this.address.addressId}}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">EDIT</a></div>
+                       <br>
+                     {{!-- <div class="custom-control custom-checkbox">
+                     <input class="custom-control-input" type="checkbox" checked="" id="inform-me">
+                     <label class="custom-control-label text-secondary" for="inform-me">Make this address default</label>
+                     </div> --}}
+
+
+                </div>
+            </div>
+          {{/each}}
+            <!-- Item-->
+            {{!-- <div class="cart-item d-md-flex justify-content-between"><span class="remove-item"><i class="fa fa-times"></i></span>
+                <div class="px-3 my-3">
+                    <a class="cart-item-product" href="#">
+                       
+                        <div class="cart-item-product-info">
+                            <h4 class="cart-item-product-title">ADDRESS 1</h4>
+                            <div class="text-lg text-body font-weight-medium pb-1">Example house</div>
+                            <div class="text-lg text-body font-weight-medium pb-1">Example street</div>
+                            <div class="text-lg text-body font-weight-medium pb-1">Example district</div>
+                            <div class="text-lg text-body font-weight-medium pb-1">state 1</div>
+                        </div>
+                    </a>
+                </div>
+            </div> --}}
+            <!-- Item-->
+            {{!-- <div class="cart-item d-md-flex justify-content-between"><span class="remove-item"><i class="fa fa-times"></i></span>
+                <div class="px-3 my-3">
+                    <a class="cart-item-product" href="#">
+                        <div class="cart-item-product-info">
+                            <h4 class="cart-item-product-title">ADDRESS 2</h4>
+                            <div class="text-lg text-body font-weight-medium pb-1">Example house</div>
+                            <div class="text-lg text-body font-weight-medium pb-1">Example street</div>
+                            <div class="text-lg text-body font-weight-medium pb-1">Example district</div>
+                            <div class="text-lg text-body font-weight-medium pb-1">state 1</div>
+                        </div>
+                    </a>
+                </div>
+            </div> --}}
+           
+        </div>
+    </div>
+</div>
+
+
+{{!-- password reset modal --}}
+<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">CHANGE PASSWORD</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+          <form id="changePwd" action="/changePassword" method="post" >
+        <div class="md-form mb-1">
+          <i class="fas fa-user prefix grey-text"></i>
+          <label data-error="wrong" data-success="right" for="orangeForm-name">New password</label>
+          <input type="password" id="orangeForm-name" name="newpassword" class="form-control validate">
+          
+        </div>
+        <div class="md-form mb-1">
+          <i class="fas fa-envelope prefix grey-text"></i>
+           <label data-error="wrong" data-success="right" for="orangeForm-email">Retype New password</label>
+          <input type="password" id="orangeForm-email" name="confirmpassword" class="form-control validate">
+         
+        </div>
+
+        {{!-- <div class="md-form mb-1">
+          <i class="fas fa-lock prefix grey-text"></i>
+          <input type="password" id="orangeForm-pass" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-pass">Your password</label>
+        </div> --}}
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-deep text-light bg-info">Save Changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+{{!-- modal end --}}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="user/javascripts/jquery-3.2.1.min.js"></script>
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+function addressDelete(addressId){
+
+      swal({
+        title: "Are you sure?",
+        text: "Once confirmed ,the Address will be removed!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+             $.ajax({
+                   url:'/deleteAddress',
+                   data:{
+                   addressDelete:addressId
+                   },
+                    method:'post',
+                    success:(response)=>{
+                        if(response.status)
+                        {
+                            swal("Address deleted!", {
+                            icon: "success",
+                            });
+         
+                            location.reload()
+
+                        }
+                     
+                  }
+                })
+
+       }
+
+}
+)
+
+
+}
+
+{{!-- change password --}}
+
+{{!-- $(document).ready(function () {
+  $("form").submit(function (event) {
+    var formData = {
+      Pwd: $("#newpassword").val(),
+      confirmPwd:$("#confirmpassword").val(),
+     
+    };
+    alert(Pwd)
+
+    $.ajax({
+      type: "POST",
+      url: "/changePassword",
+      data:formData,
+      dataType: "json",
+      encode: true,
+    }).done(function (data) {
+      console.log(data);
+    });
+
+    event.preventDefault();
+  });
+}); --}}
+
+ $("#changePwd").validate({
+  
+
+    rules:{
+       
+        newpassword:{
+            required:true,
+            minlength:5
+        },
+       
+        
+        confirmpassword:{
+            required:true,
+            minlength:5
+        }
+      
+    },
+    messages:{
+      
+        newpassword:{
+            required: 'Password is required',
+            
+        },
+       
+        confirmpassword:{
+            required: 'Confirm password is required'
+        }
+        
+
+    }
+});
+
+</script>
+
+
+                       

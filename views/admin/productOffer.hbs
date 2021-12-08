@@ -1,0 +1,219 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container bootstrap snippets bootdeys">
+<div class="row">
+  <div class="col-xs-12 col-sm-9">
+    <form action="/admin/productOffer" id="proOffer" method="post" class="form-horizontal">
+       
+      <div class="panel panel-default">
+        <div class="panel-heading">
+        <h2 class="panel-title text-dark">Product Offer</h2><br>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label class="col-sm-2 control-label text-dark">Product</label>
+            <div class="col-sm-10">
+              <select name="offerProduct" class="form-control">
+                <option selected="">select product</option>
+                {{#each products}}
+                <option>{{this.product_name}}</option>
+                {{/each}}
+              </select>
+            </div>  
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label text-dark">Discount</label>
+            <div class="col-sm-10">
+              <input name="Discount" type="number" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label text-dark">Start date</label>
+            <div class="col-sm-10">
+              <input name="startDate" onchange="dateValid()" id="txtDate" type="date" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label text-dark">End date</label>
+            <div class="col-sm-10">
+              <input name="endDate" disabled id="endDate" type="date" class="form-control">
+            </div>
+          </div>
+           <button class="btn btn-primary ml-2" type="submit">SUBMIT</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+</div><br><br>    
+
+<div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">RUNNUNG PRODUCT OFFER</h4>
+                    {{!-- <p class="card-description"> Add class <code>.table-bordered</code> --}}
+                    </p>
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th> sl.no </th>
+                          {{!-- <th> Customer </th> --}}
+                          <th>Applied Product</th>
+                          <th>Dsicount%</th>
+                          {{!-- <th>Item</th> --}}
+                          <th>Start date</th>
+                          <th>End date</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          {{#each productOffers}}
+                        <tr>
+                            <td>{{@index}}</td>
+                          {{!-- <td>{{this.deliveryDetails.Name}}</td> --}}
+                          <td>{{this.offerProduct}}</td>
+                          <td>{{this.Discount}}</td>
+                           {{!-- <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+                              Item
+                            </button>
+                          </td> --}}
+                          <td>{{this.showStartDate}}</td>
+                          <td width="70px">{{this.showEndDate}}</td>
+                          <td>
+                            <a class="btn btn-danger" onclick="deleteProdOffer('{{this._id}}','{{this.offerProduct}}')" role="button">Remove</a>
+                            
+                          </td>
+                        </tr>
+                        {{/each}}
+                         
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+
+<script src="/user/javascripts/jquery-3.2.1.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+$("#proOffer").validate({
+    rules:{
+     offerCategory:{
+            required:true
+        },
+        Discount:{
+            required:true,
+            number:true,
+            max:99,
+            min:1
+            
+        },
+        startDate:{
+            required:true
+
+        },
+        
+        endDate:{
+            required:true
+        }
+      
+         
+    },
+    messages:{
+        offerCategory:{
+            required: 'Product is required'
+        },
+        Discount:{
+            required: 'Discount is required'
+        },
+        startDate:{
+            required:'Startdate is required'
+
+        },
+        endDate:{
+            required: 'Enddate is required'
+        }
+    }
+       
+});
+
+
+function deleteProdOffer(id,proName){
+    console.log(id)
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url:"/admin/deleteProductoffer/",
+                method:"POST",
+                data:{
+                  id:id,
+                  proName:proName
+                
+                },
+                success:(result)=>{
+                    if(result.status){
+                     swal("OFFER deleted!", {
+                         icon: "success",
+                       });
+                       location.href="/admin/prodOffer"
+                      
+         
+                    }
+                }
+                
+            })
+      }
+
+}
+)
+
+}
+
+{{!-- date disable --}}
+
+$(function(){
+    var dtToday = new Date();
+    
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+    
+    var maxDate = year + '-' + month + '-' + day;
+    {{!-- alert(maxDate); --}}
+    $('#txtDate').attr('min', maxDate);
+    {{!-- $('#endDate').attr('min', maxDate); --}}
+});
+
+function dateValid(){
+    var dtToday =document.getElementById('txtDate').value
+    document.getElementById('endDate').removeAttribute("disabled")
+    
+    {{!-- var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+    
+    var maxDate = year + '-' + month + '-' + day; --}}
+    {{!-- alert(maxDate); --}}
+    $('#endDate').attr('min', dtToday);
+};
+</script>

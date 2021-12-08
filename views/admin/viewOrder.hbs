@@ -1,0 +1,125 @@
+
+
+<div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">CART DETAILS</h4>
+                    </p>
+                    <table class="table text-center">
+                      <thead>
+                        <tr>
+                          <th>Username</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>order date</td>
+                        </tr>
+                        <tr>
+                          <td>quantity</td> 
+                        </tr>
+                        <tr>
+                          <td>Payment method</td>
+                        </tr>
+                        
+                       
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+
+{{!-- table --}}
+<div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">ORDER DETAILS</h4>
+                    {{!-- <p class="card-description"> Add class <code>.table-dark</code>
+                    </p> --}}
+                    <table class="table table-dark">
+                      <thead>
+                        <tr>
+                          <th> sl.no </th>
+                          <th> Productname </th>
+                          <th> Price </th>
+                          <th> Quantity </th>
+                          <th> Status </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          {{#each orderDetails}}
+                        <tr>
+                          <td>{{@index}}</td>
+                          <td>{{this.product.product_name}}</td>
+                          <td>{{this.product.price}}</td>
+                          <td>{{this.quantity}}</td>
+                          <td>
+                              <select onchange="deliveryStatus(value,'{{this._id}}','{{this.userId}}','{{this.item}}')">
+                            <option value="{{this.status}}" selected disabled>{{this.status}}</option>
+                            <option value="pending">Pending</option>
+                            <option value="shipped">shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancel">Cancel</option>
+                            </select>
+                             </td>
+                        </tr>
+                        {{/each}}
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="user/javascripts/jquery-3.2.1.min.js"></script>
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ <script>
+
+   function deliveryStatus(status,orderId,userId,proId){
+  
+     let statusUpdate=status;
+     let userid=userId;
+     let orderNumber=orderId;
+     let prodId=proId;
+     
+     swal({
+        title: "Are you sure?",
+        text: "Once confirmed ,The status will be updated!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+             $.ajax({
+                   url:'/admin/deliverystatus',
+                   data:{
+                   userId:userid,
+                   status:statusUpdate,
+                   order:orderNumber,
+                   productId:prodId
+                   },
+                    method:'post',
+                    success:(result)=>{
+                      if(result.status){
+                        swal("Status updated!", {
+                         icon: "success",
+                       });
+                        location.reload()
+
+                      }
+                    
+                  }
+                })
+
+       }
+
+}
+)
+
+
+   }
+ </script>

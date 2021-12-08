@@ -1,0 +1,85 @@
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Product management</h4>
+   
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th> </th>
+          <th>Product</th>
+          <th>Category</th>
+          <th> ISBN </th>
+          <th> Quantity </th>
+          <th> Price </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each products}}
+          <tr>
+
+            <td class="py-1">
+              <img
+                style="width:50px;height:50px"
+                src="/product-images/{{this._id}}1.png"
+                alt="image"
+              />
+            </td>
+            <td>{{this.product_name}}</td>
+            <td>{{this.category}}</td>
+            <td>{{this.isbn}}</td>
+            <td>{{this.quantity}}</td>
+            <td>{{this.price}}</td>
+            <td><a href="/admin/edit-product/{{this._id}}/" class="btn btn-primary btn-sm">Edit</a></td>
+            <td><a
+                class="btn btn-danger btn-sm"
+                onclick="deleteproduct('{{this._id}}')"
+              >Delete</a></td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{{! modal }}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+function deleteproduct(id){
+    console.log(id)
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url:"/admin/delete-product/",
+                method:"POST",
+                data:{id:id},
+                success:(result)=>{
+                    if(result.status){
+                     swal("product deleted!", {
+                         icon: "success",
+                       });
+                       location.href="/admin/product-management"
+                      
+         
+                    }
+                }
+                
+            })
+      }
+
+}
+)
+
+}
+
+
+</script>
+

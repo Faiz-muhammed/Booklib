@@ -1,0 +1,103 @@
+<div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">USER MANAGEMENT</h4>
+                    {{!-- <p class="card-description"> Add class <code>.table-dark</code> --}}
+                    </p>
+                    <table class="table table-dark">
+                      <thead>
+                        <tr>
+                          <th> # </th>
+                          <th class="text-warning"> NAME </th>
+                          <th class="text-warning"> EMAIL </th>
+                          <th class="text-warning"> CONTACT </th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          {{#each users}}
+                        <tr>
+                          <td>{{@index}}</td>
+                          <td>{{this.Username}}</td>
+                          <td>{{this.Email}}</td>
+                          <td>{{this.Mobile}}</td>
+                          {{#if this.blocked}}
+                          <td> <a  class="btn btn-success" style="width:85px; ;" onclick="unblockuser('{{this._id}}')" >Unblock</a></td>
+                          {{else}}
+                          <td> <a  class="btn btn-danger" style="width:85px; ;" onclick="blockuser('{{this._id}}')" >Block</a></td>
+                          {{/if}}
+                        </tr>
+                          {{/each}}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    /*block user*/
+ function blockuser(id){
+    console.log(id)
+    swal({
+        title: "Are you sure?",
+        text: "Once Blocked, User will lose the access to the Website!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url:"/admin/blockuser/",
+                method:"POST",
+                data:{id:id},
+                success:(result)=>{
+                    if(result.status){
+                     swal("user Blocked!", {
+                         icon: "success",
+                       });
+                       location.href="/admin/userManagement/"
+                      
+         
+                    }
+                }
+                
+            })
+      }
+
+})
+}
+
+ /*unblock user*/
+ function unblockuser(id){
+    console.log(id)
+    swal({
+        title: "Are you sure?",
+        text: "Once Unblocked, User will get access to the Website!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url:"/admin/unblockuser/",
+                method:"POST",
+                data:{id:id},
+                success:(result)=>{
+                    if(result.status){
+                     swal("user Unblocked!", {
+                         icon: "success",
+                       });
+                       location.href="/admin/userManagement/"
+                      
+         
+                    }
+                }
+                
+            })
+      }
+
+})
+}
+
+  </script>

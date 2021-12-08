@@ -1,0 +1,52 @@
+ <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">ORDER MANAGEMENT</h4>
+                    {{!-- <p class="card-description"> Add class <code>.table-bordered</code> --}}
+                    </p>
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th> sl.no </th>
+                          {{!-- <th> Customer </th> --}}
+                          <th>Customer<br>Details</th>
+                          <th> Amount </th>
+                          {{!-- <th>Item</th> --}}
+                          <th>payment<br>method</th>
+                          <th> date</th>
+                          <th> Order</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          {{#each orders}}
+                        <tr>
+                            <td>{{@index}}</td>
+                          {{!-- <td>{{this.deliveryDetails.Name}}</td> --}}
+                          <td>{{this.deliveryDetails.Name}},<br>{{this.deliveryDetails.House}},<br>{{this.deliveryDetails.Street}},<br>{{this.deliveryDetails.District}}</td>
+                          <td>{{this.totalAmount}}</td>
+                           {{!-- <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+                              Item
+                            </button>
+                          </td> --}}
+                          <td>{{this.PaymentMethod}}</td>
+                          <td width="70px">{{this.date}}</td>
+                          <td>
+                            <a class="btn btn-primary" href="/admin/viewOrder?orderId={{this._id}}" role="button">View order</a>
+                            
+                            
+                          </td>
+                        </tr>
+                        {{/each}}
+                         
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+ 
+
+
+
+              

@@ -1,0 +1,113 @@
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">CATEGORY MANAGEMENT</h4>
+    <p class="card-description"> Add category </p>
+    <form class="forms-sample" id="catadd" action="/admin/add-category" method="post">
+    {{#if categoryExisterror}}
+    <h4 class="text-danger">This category already exists</h4>
+    {{/if}}
+      <div class="form-group">
+        <label for="exampleInputUsername1">CATEGORY NAME</label>
+        <input
+          type="text"
+          class="form-control"
+          name="categoryname"
+          id="exampleInputUsername1"
+          placeholder="category name"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+      <button class="btn btn-light">Cancel</button>
+    </form>
+  </div>
+</div>
+
+<hr />
+{{! category table }}
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">CATEGORIES</h4>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Sl.no</th>
+          <th>CATEGORY</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each categories}}
+          <tr>
+            <td>{{@index}}</td>
+
+            <td>{{this.categoryname}}</td>
+            <td><a class="btn btn-danger btn-sm" onclick="deletecategory('{{this._id}}')">Remove</a></td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+   <script src="/user/javascripts/jquery-3.2.1.min.js"></script>
+              <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+{{!-- modal --}}
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+function deletecategory(id){
+    console.log(id)
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url:"/admin/delete-category/",
+                method:"POST",
+                data:{id:id},
+                success:(result)=>{
+                    if(result.status){
+                     swal("category deleted!", {
+                         icon: "success",
+                       });
+                       location.href="/admin/category-product"
+                      
+         
+                    }
+                }
+                
+            })
+      }
+
+}
+)
+
+}
+
+{{!-- form validation --}}
+$("#catadd").validate({
+    rules:{
+       
+        categoryname:{
+            required:true,
+            
+        }
+  
+      
+    },
+    messages:{
+      
+       categoryname:{
+            required: 'Category is required',
+        }
+        
+
+    }
+});
+</script>

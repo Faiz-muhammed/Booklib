@@ -1,0 +1,258 @@
+ {{#if cartEmty}}
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="/user/stylesheets/order.css">
+ {{/if}}
+
+
+  <!--================Cart Area =================-->
+    <section class="cart_area">
+      <div class="container">
+        <div class="cart_inner">
+          {{!-- emty --}}
+           {{#if cartEmty}}
+             <div class="container mt-5 mb-5">
+              <div class="row">
+                  <div class="col-md-6 mx-auto mt-5 ">
+                    <div class="payment">
+                        <div class="payment_header bg-info">
+                          <div class="check"><i class="fa fa-shopping-bag" aria-hidden="true"></i></div>
+                        </div>
+                        <div class="content">
+                          <h1>YOUR CART IS EMTY !</h1>
+                          <p></p>
+
+                          <a class="" href="/category">Go to collections</a>
+                        </div>
+                        
+                    </div>
+                  </div>
+              </div>
+            </div>
+             {{else}}
+          {{!-- emty --}}
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                
+                <tr>
+                  <th scope="col">Product</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Total</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each cartProducts}}
+                <tr>
+                 
+                  <td>
+                    <div class="media">
+                      <div class="d-flex">
+                        <img
+                          src="/product-images/{{this.product._id}}1.png"
+                          alt=""
+                        />
+                      </div>
+                      <div class="media-body">
+                        <p>{{this.product.product_name}}</p>
+                      </div>
+                    </div>
+                  </td>
+                  
+                  <td>
+                    {{!-- {{#if product.catOfferprice}}
+                    <h5 id="{{this.product._id}}price">{{this.product.catOfferprice}}</h5>
+                    {{else}} --}}
+                    <h5 id="{{this.product._id}}price">{{this.product.price}}</h5>
+                    {{!-- {{/if}} --}}
+                  </td>
+                  <td>
+                    <div class="product_count">
+                    <div>
+                      <button
+                        onclick="changeQty('{{this._id}}','{{this.product._id}}','{{../user._id}}','{{this.product.quantity}}',1)"
+                        class="increase items-count"
+                        type="button"
+                      >
+                        <i class="lnr lnr-chevron-up"></i>
+                      </button>
+                      <span 
+                       
+                        id="{{this.product._id}}"
+                        
+                        class=""
+                      >{{this.quantity}}</span>
+                    </div>
+
+                      <button
+                        onclick="changeQty('{{this._id}}','{{this.product._id}}','{{../user._id}}','{{this.product.quantity}}',-1)"
+                        class="reduced items-count"
+                        type="button"
+                      >
+                        <i class="lnr lnr-chevron-down"></i>
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <h5 id="{{this.product._id}}subtotal">{{Subtotal}}</h5>
+                  </td>
+                  <td>
+                   <button type="button" onclick="cartProductdelete('{{this._id}}','{{this.product._id}}')" class="close" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                   </button>
+                  </td>
+                </tr>
+                 {{/each}}
+                <tr class="bottom_button">
+                  <td>
+                    <a class="gray_btn" href="#">Update Cart</a>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                 
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <h5>Subtotal</h5>
+                  </td>
+                  <td>
+                    <h5>₹<span id="total">{{totalvalue}}</span>.00</h5>
+                  </td>
+                </tr>
+             
+                <tr class="out_button_area">
+                  <td></td>
+                  <td></td>
+              
+                  <td>
+                    <div class="checkout_btn_inner">
+                      <a class="gray_btn" href="#">Continue Shopping</a>
+                      <a class="main_btn" href="/checkout">Proceed to checkout</a>
+                    </div>
+                  </td>
+                </tr>
+               
+              </tbody>
+            </table>
+          </div>
+           {{/if}}
+        </div>
+      </div>
+    </section>
+    <!--================End Cart Area =================-->
+ <!-- Optional JavaScript -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
+    <script src="user/javascripts/jquery-3.2.1.min.js"></script>
+    
+    <script src="user/javascripts/popper.js"></script>
+    <script src="user/javascripts/bootstrap.min.js"></script>
+    <script src="user/javascripts/stellar.js"></script>
+    <script src="user/vendors/lightbox/simpleLightbox.min.js"></script>
+    <script src="user/vendors/nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="user/vendors/isotope/imagesloaded.pkgd.min.js"></script>
+    <script src="user/vendors/isotope/isotope-min.js"></script>
+    <script src="user/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="user/javascripts/jquery.ajaxchimp.min.js"></script>
+    <script src="user/javascripts/mail-script.js"></script>
+    <script src="user/vendors/jquery-ui/jquery-ui.js"></script>
+    <script src="user/vendors/counter-up/jquery.waypoints.min.js"></script>
+    <script src="user/vendors/counter-up/jquery.counterup.js"></script>
+    <script src="user/javascripts/theme.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+    <script></script>
+    <script>
+      function changeQty(cartId,proId,userId,Stock,count){
+       
+        let quantity=parseInt(document.getElementById(proId).innerHTML)
+        let price=parseInt(document.getElementById(proId+'price').innerHTML)
+        let subtotal =parseInt(document.getElementById(proId+"subtotal").innerHTML);
+        
+        count=parseInt(count)
+        if(quantity>=Stock&&count==1){
+
+          
+        }
+        else{
+          $.ajax({
+          url:'/change-product-quantity',
+          data:{
+            user:userId,
+            cart:cartId,
+            product:proId,
+            count:count,
+            quantity:quantity,
+            price:price
+          },
+          method:'post',
+          success:(response)=>{
+            if(response.removeProduct){
+              alert("deleted")
+              location.reload()
+            }
+            else{
+              document.getElementById(proId).innerHTML=quantity+count
+              document.getElementById('total').innerHTML=response.total
+              
+              if(count == 1){
+                 document.getElementById(proId+"subtotal").innerHTML = subtotal+price;
+              }
+              else{
+                 document.getElementById(proId+"subtotal").innerHTML = subtotal-price;
+              }
+              
+            }
+          }
+        })
+
+
+
+        }
+
+        
+      }
+
+
+    function cartProductdelete(cartId,proId){
+
+      swal({
+        title: "Are you sure?",
+        text: "Once confirmed ,the product will be removed from cart!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+             $.ajax({
+                   url:'/deleteCartproduct',
+                   data:{
+                   cart:cartId,
+                   product:proId
+                   },
+                    method:'post',
+                    success:(response)=>{
+                     swal("user Blocked!", {
+                         icon: "success",
+                       });
+         
+                    location.reload()
+                  }
+                })
+
+       }
+
+})
+
+
+    }  
+    </script>
