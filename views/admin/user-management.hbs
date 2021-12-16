@@ -1,12 +1,14 @@
+
+
 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">USER MANAGEMENT</h4>
                     {{!-- <p class="card-description"> Add class <code>.table-dark</code> --}}
                     </p>
-                    <table class="table table-dark">
+                    <table id="userTable" class="table ">
                       <thead>
                         <tr>
-                          <th> # </th>
+                          <th>sl.no</th>
                           <th class="text-warning"> NAME </th>
                           <th class="text-warning"> EMAIL </th>
                           <th class="text-warning"> CONTACT </th>
@@ -32,6 +34,9 @@
                   </div>
                 </div>
 
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js" defer></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
     /*block user*/
@@ -100,4 +105,13 @@
 })
 }
 
+{{!-- data table  --}}
+
+$(document).ready( function () {
+    $('#userTable').DataTable();
+} );
+
+$('#userTable tbody tr').each(function (idx){
+        $(this).children("td:eq(0)").html(idx+1)
+      })
   </script>

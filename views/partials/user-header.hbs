@@ -5,13 +5,13 @@
       <div class="row">
         <div class="col-lg-7">
           <div class="float-left">
-            <p>Phone: +01 256 25 235</p>
+            <p>Phone: +91 256 25 235</p>
             <p>email: info@booklib.com</p>
           </div>
         </div>
         <div class="col-lg-5">
           <div class="float-right">
-            <ul class="right_side">
+            {{!-- <ul class="right_side">
               <li>
                 <a href="tracking.html">
                   track order
@@ -22,7 +22,7 @@
                   Contact Us
                 </a>
               </li>
-            </ul>
+            </ul> --}}
           </div>
         </div>
       </div>
@@ -32,7 +32,7 @@
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light w-100">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <a class="navbar-brand logo_h" href="index.html">
+        <a class="navbar-brand logo_h" href="/">
           <img src="/user/images/logo.png" alt="" />
         </a>
         <button
@@ -93,7 +93,7 @@
                     role="button"
                     aria-haspopup="true"
                     aria-expanded="false"
-                  ><span class="btn btn-secondary " >Hi,{{userName.Username}}</span></a>
+                  ><span class="btn btn-outline-dark btn-sm" >Hi,{{userName.Username}}</span></a>
                   {{else}}
                     <a
                     href="#"
@@ -102,7 +102,7 @@
                     role="button"
                     aria-haspopup="true"
                     aria-expanded="false"
-                  ><span class="btn btn-secondary">Account</span></a>
+                  ><span class="btn btn-outline-dark btn-sm" >Account</span></a>
                   {{/if}}
                   <ul class="dropdown-menu">
                     {{!-- <li class="nav-item">
@@ -149,11 +149,11 @@
 
             <div class="col-lg-5 pr-0">
               <ul class="nav navbar-nav navbar-right right_nav pull-right">
-                <li class="nav-item">
+                {{!-- <li class="nav-item">
                   <a href="#" class="icons">
                     <i class="ti-search" aria-hidden="true"></i>
                   </a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                   <a href="/cart" class="icons">

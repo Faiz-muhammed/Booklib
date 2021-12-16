@@ -1,7 +1,36 @@
+
+ {{#if wishlistEmty}}
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="/user/stylesheets/order.css">
+ {{/if}}
+
 <section class="inspired_product_area section_gap_bottom_custom">
   <hr>
   <br>
   <div class="container">
+  {{!-- emty wishlist --}}
+   {{#if wishlistEmty}}
+             <div class="container mt-5 mb-5">
+              <div class="row">
+                  <div class="col-md-6 mx-auto mt-5 ">
+                    <div class="payment">
+                        <div class="payment_header bg-info">
+                          <div class="check"><i class="fa fa-heart" aria-hidden="true"></i></div>
+                        </div>
+                        <div class="content">
+                          <h1>YOUR WISHLIST IS EMTY !</h1>
+                          <p></p>
+
+                          <a class="" href="/category">Go to collections</a>
+                        </div>
+                        
+                    </div>
+                  </div>
+              </div>
+            </div>
+             {{else}}
+  {{!-- emty wishlist end --}}
  <div class="row">
       {{#each wishData}}
       <div class="col-lg-3 col-md-6">
@@ -38,6 +67,7 @@
       </div>
       {{/each}}
  </div>
+ {{/if}}
   </div>
 </section>
  
@@ -231,7 +261,7 @@ function removeWish(proId){
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 2000,
             timerProgressBar: true,
             didOpen: (toast) => {
               toast.addEventListener('mouseenter', Swal.stopTimer)

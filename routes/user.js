@@ -29,6 +29,7 @@ var productView;
 var addressExist=false;
 var blocked=false
 let cartEmty=false;
+let wishlistEmty=false;
 let filterCat=null;
 let categoryname=null;
 let pwdNotmatch=false;
@@ -174,6 +175,7 @@ emailexist=false;
 
 /*otp user */
 router.get("/otp-verify", function (req,res) {
+  res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   res.render("user/otp-page", { user: true });
 });
 
@@ -235,22 +237,32 @@ if (req.body.Password === req.body.Confirmpwd) {
 
 /*user login post */
 
-router.post('/userlogin',(req,res)=>{
+router.post('/userlogin',async(req,res)=>{
 console.log(req.body);
-userhelper.userLogin(req.body).then((response)=>{
-  if(response.status){
-    console.log(response.status);
-    req.session.user=response.user
-    
-    req.session.user.loggedIn=true
-    console.log(req.session.user);
-    res.redirect('/')
-  }
-  else{
-    req.session.userloginErr=true;
-    res.redirect('/login')
-  }
-})
+
+let blockcheck=await userHelper.loginBlockcheck(req.body.Email)
+console.log(blockcheck);
+if(blockcheck){
+  blocked=true;
+  res.redirect('/login')
+}   
+else
+{
+  userhelper.userLogin(req.body).then((response)=>{
+    if(response.status){
+      console.log(response.status);
+      req.session.user=response.user
+      
+      req.session.user.loggedIn=true
+      console.log(req.session.user);
+      res.redirect('/')
+    }
+    else{
+      req.session.userloginErr=true;
+      res.redirect('/login')
+    }
+  })
+}
 
 })
 
@@ -427,7 +439,7 @@ console.log("single");
 // shopping cart
 
 router.get("/cart",blockAndverify,async(req,res,next)=>{
-
+  res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let cartProducts=await userhelper.getCartproducts(req.session.user._id)
   let totalvalue=await userhelper.getTotalAmount(req.session.user._id)
   console.log(cartProducts);
@@ -565,7 +577,8 @@ router.get("/placeOrder",blockAndverify,async(req,res)=>{
 
   let deliveryAddress=req.query.deliveryAddress
   let userId=req.query.userId;
-  let paymentMethod=req.query.paymentMethod
+  let paymentMethod=req.query.paymentMethod;
+  let coupon=req.query.coupon;
   let couponTotal=req.query.couponTotal;
   let totalprice;
   console.log("trewytr");
@@ -594,7 +607,7 @@ router.get("/placeOrder",blockAndverify,async(req,res)=>{
   console.log(address);
 
    
-  userhelper.placeOrder(paymentMethod,userId,address,products,totalprice).then((response)=>{
+  userhelper.placeOrder(paymentMethod,userId,address,products,totalprice,coupon).then((response)=>{
 
     if(paymentMethod==='Cod'){
 
@@ -617,8 +630,8 @@ router.get("/placeOrder",blockAndverify,async(req,res)=>{
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "http://localhost:3000/paypalSuccess",
-            "cancel_url": "http://localhost:3000/paymentFailed"
+            "return_url": "https://booklib.ml/paypalSuccess",
+            "cancel_url": "https://booklib.ml/paymentFailed"
         },
         "transactions": [{
             "item_list": {
@@ -797,10 +810,10 @@ router.get("/myOrders",blockAndverify,async(req,res)=>{
   cartCount=await userhelper.getcartCount(req.session.user._id)
   
   }
-
+  let userdet=await userhelper.getUserdetails(req.session.user._id)
   userhelper.getMyorders(req.session.user._id).then((myOrders)=>{
    
-    res.render("user/myOrders",{user:true,myOrders,userName,cartCount})
+    res.render("user/myOrders",{user:true,myOrders,userName,cartCount,userdet})
   })
  
 })
@@ -871,8 +884,12 @@ router.get("/wishList",blockAndverify,async(req,res)=>{
   let user=req.session.user._id
   let wishData=await productHelper.getWishlistdata(user)
   console.log(wishData);
-
-  res.render("user/wishlist",{user:true,wishData,userName,cartCount})
+  
+  if(wishData.length<=0){
+    wishlistEmty=true
+  }
+  res.render("user/wishlist",{user:true,wishData,userName,cartCount,wishlistEmty})
+  wishlistEmty=false;
 
 })
 
@@ -1001,8 +1018,8 @@ router.get("/placeOrderBuynow",blockAndverify,async(req,res)=>{
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "http://localhost:3000/paypalSuccess",
-            "cancel_url": "http://localhost:3000/paymentFailed"
+            "return_url": "https://booklib.ml/paypalSuccess",
+            "cancel_url": "https://booklib.ml/paymentFailed"
         },
         "transactions": [{
             "item_list": {
@@ -1075,7 +1092,19 @@ router.get("/removeWish",blockAndverify,(req,res)=>{
   })
 })
 
-// rating and review
+// search bar
+
+router.post('/getProducts',async(req,res) =>{
+  let payload = req.body.payload.trim();
+  console.log(payload);
+  let search= await productHelper.searchProducts(payload)
+  //  search=search.slice(0,10);
+
+   console.log(search);
+   res.send({payload:search});
+})
+
+
 
 
 

@@ -11,6 +11,8 @@ const { route } = require("./user");
 
 var adminlogerr=false;
 var categoryExisterror=false;
+var catOfferExist=false;
+var proOfferExist=false;
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -155,11 +157,11 @@ router.post("/add-category", (req, res) => {
     if(response.exist){
 
       categoryExisterror=true;
-      res.redirect("category-product");
+      res.redirect("/admin/category-product");
     }
     else
     {
-      res.redirect("category-product");
+      res.redirect("/admin/category-product");
     }
 
   }) 
@@ -188,7 +190,7 @@ router.post("/addprod", function (req, res) {
     if(response.exist){
 
       productExisterror="This product already exists"
-      res.redirect("add-product");
+      res.redirect("/admin/add-product");
     }
     else{
       let image1= req.files.image1;
@@ -207,7 +209,7 @@ router.post("/addprod", function (req, res) {
               image3.mv('./public/product-images/'+isbn+'3.png',(err,done)=>{
 
                 if(!err){
-                  res.redirect("add-product");
+                  res.redirect("/admin/add-product");
                 }
               })
             }
@@ -304,17 +306,18 @@ console.log("shashi ok");
       image3.mv('./public/product-images/'+id+'3.png',(err,done)=>{
 
         if(!err){
-          res.redirect('product-management')
+          
         }
         else{
           console.log(err);
         }
       })
     }
-    else{
-      res.redirect('product-management')
-    }
+    
+      
+    
   })
+  res.redirect('/admin/product-management')
 })
 
 //user management
@@ -467,7 +470,7 @@ router.post("/bannermanage", function (req, res) {
     
      productHelper.addBanner(req.body).then((response)=>{
    
-      res.redirect("bannerManagement")
+      res.redirect("/admin/bannerManagement")
       
   })
 })
@@ -481,7 +484,8 @@ router.get("/catOffers",async(req,res)=>{
    let catOffer=await productHelper.getCatoffers()
    console.log(catOffer);
    await categoryHelper.getAllCategories().then((categories) => {
-      res.render("admin/Offers",{admin:true,categories,catOffer});
+      res.render("admin/Offers",{admin:true,categories,catOffer,catOfferExist});
+      catOfferExist=false;
     });
   }
   else{
@@ -493,7 +497,7 @@ router.get("/catOffers",async(req,res)=>{
 
 // category offer
 
-router.post("/categoryOffer",(req,res)=>{
+router.post("/categoryOffer",async(req,res)=>{
  
    let offerDetails=req.body;
    offerDetails.showStartDate=offerDetails.startDate
@@ -502,11 +506,19 @@ router.post("/categoryOffer",(req,res)=>{
    offerDetails.endDate=new Date(offerDetails.endDate)
    offerDetails.Discount=parseInt(offerDetails.Discount)
    
+  let offExist=await productHelper.catOffexist(offerDetails.offerCategory)
+  console.log(offExist);
+  if(offExist){
+     catOfferExist=true
+     res.redirect("/admin/catOffers")
+  }
+  else{
+   
+    productHelper.AddcategoryOffer(offerDetails).then(()=>{
 
-  productHelper.AddcategoryOffer(offerDetails).then(()=>{
-
-    res.redirect("catOffers")
-  })
+      res.redirect("/admin/catOffers")
+    })
+  }
 
 })
 
@@ -532,7 +544,8 @@ router.get("/prodOffer",async(req,res)=>{
     let productOffers=await productHelper.getprodoffers()
     console.log(productOffers);
     await productHelper.getAllproducts().then((products) => {
-      res.render("admin/productOffer",{admin:true,products,productOffers});
+      res.render("admin/productOffer",{admin:true,products,productOffers,proOfferExist});
+      proOfferExist=false;
      });
    }
    else{
@@ -545,7 +558,7 @@ router.get("/prodOffer",async(req,res)=>{
 
 // product offer post
 
-router.post("/productOffer",(req,res)=>{
+router.post("/productOffer",async(req,res)=>{
 
   let prodOfferDetails=req.body;
 
@@ -555,10 +568,20 @@ router.post("/productOffer",(req,res)=>{
   prodOfferDetails.endDate=new Date(prodOfferDetails.endDate)
   prodOfferDetails.Discount=parseInt(prodOfferDetails.Discount)
 
-  productHelper.AddProductOffer(prodOfferDetails).then(()=>{
+  let prooffExist=await productHelper.proOffexist(prodOfferDetails.offerProduct)
+  console.log(prooffExist);
+  if(prooffExist){
+     proOfferExist=true
+     res.redirect("/admin/prodOffer")
+  }
+  else{
+   
+    productHelper.AddProductOffer(prodOfferDetails).then(()=>{
 
-    res.redirect("prodOffer")
-  })
+      res.redirect("/admin/prodOffer")
+    })
+
+  }
 
 })
 
@@ -605,7 +628,7 @@ router.post("/couponsSubmit",(req,res)=>{
     
     productHelper.addCoupons(couponData).then(()=>{
 
-      res.redirect("/coupons")
+      res.redirect("/admin/coupons")
 
     })
 

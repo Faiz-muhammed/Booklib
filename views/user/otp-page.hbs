@@ -121,10 +121,10 @@
          <h6 class="text-center" >Please enter the one time password <br> to verify your account</h6>
          <h4 style="color: red;" class="text-center otperror" id="error">INVALID OTP</h4>
         <div class="d-flex flex-row mt-5" id="otp">
-          <input type="text" class="form-control" name="otp" id="first" maxlength="1" style=" margin-right: 12px;" autofocus="" />
-          <input type="text" class="form-control" name="otp" id="second" maxlength="1" style=" margin-right: 12px;" />
-          <input type="text" class="form-control" name="otp" id="third" maxlength="1" style=" margin-right: 12px;" />
-          <input type="text" class="form-control" name="otp" id="fourth" maxlength="1" style=" margin-right: 12px;" />
+          <input type="text" class="form-control" name="otp" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" id="first" maxlength="1" onkeyup="clickevent(event,'','first','second')" style=" margin-right: 12px;" autofocus="" />
+          <input type="text" class="form-control" name="otp" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" id="second" maxlength="1" onkeyup="clickevent(event,'first','second','third')" style=" margin-right: 12px;" />
+          <input type="text" class="form-control" name="otp" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" id="third" maxlength="1" onkeyup="clickevent(event,'second','third','fourth')" style=" margin-right: 12px;" />
+          <input type="text" class="form-control" name="otp" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" id="fourth" maxlength="1" onkeyup="clickevent(event,'third','fourth','')" style=" margin-right: 12px;" />
           <input
            class="m-2 text-center form-control rounded" style="display: none;" type="text" id="phonnumber" name="phonenumber" value="{{phoneNumber}}" />
         </div>
@@ -205,6 +205,21 @@ function otpresent(){
     }
 })
 
+}
+
+function clickevent(e, pre, curr, next) {
+  var length = document.getElementById(curr).value.length;
+  var maxlength = document.getElementById(curr).getAttribute("maxlength");
+  if (maxlength == length) {
+    if (next !== "") {
+      document.getElementById(next).focus();
+    }
+  }
+  if (e.key === "Backspace") {
+    if (pre !== "") {
+      document.getElementById(pre).focus();
+    }
+  }
 }
 
 </script>

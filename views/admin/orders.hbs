@@ -4,7 +4,7 @@
                     <h4 class="card-title">ORDER MANAGEMENT</h4>
                     {{!-- <p class="card-description"> Add class <code>.table-bordered</code> --}}
                     </p>
-                    <table class="table table-bordered">
+                    <table id="ordersTable" class="table table-bordered">
                       <thead>
                         <tr>
                           <th> sl.no </th>
@@ -44,6 +44,21 @@
                   </div>
                 </div>
               </div>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js" defer></script>
+  <script>
+    {{!-- data table  --}}
+
+$(document).ready( function () {
+    $('#ordersTable').DataTable();
+} );
+
+$('#ordersTable tbody tr').each(function (idx){
+        $(this).children("td:eq(0)").html(idx+1)
+      })
+  </script>
 
  
 

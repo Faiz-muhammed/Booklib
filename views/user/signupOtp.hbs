@@ -15,10 +15,10 @@
          <h6 class="text-center" >Please enter the one time password <br> to verify your account</h6>
          <h4 style="color: red;" class="text-center otperror" id="error">INVALID OTP</h4>
         <div class="d-flex flex-row mt-5" id="otp">
-          <input type="text" class="form-control" name="otp" id="first" maxlength="1" style=" margin-right: 12px;" autofocus="" />
-          <input type="text" class="form-control" name="otp" id="second" maxlength="1" style=" margin-right: 12px;" />
-          <input type="text" class="form-control" name="otp" id="third" maxlength="1" style=" margin-right: 12px;" />
-          <input type="text" class="form-control" name="otp" id="fourth" maxlength="1" style=" margin-right: 12px;" />
+          <input type="text" class="form-control" name="otp" id="first" maxlength="1" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" style=" margin-right: 12px;" autofocus="" />
+          <input type="text" class="form-control" name="otp" id="second" maxlength="1" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" style=" margin-right: 12px;" />
+          <input type="text" class="form-control" name="otp" id="third" maxlength="1" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" style=" margin-right: 12px;" />
+          <input type="text" class="form-control" name="otp" id="fourth" maxlength="1" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" style=" margin-right: 12px;" />
           <input
            class="m-2 text-center form-control rounded" style="display: none;" type="text" id="phonnumber" name="phonenumber" value="{{phoneNumber}}" />
         </div>

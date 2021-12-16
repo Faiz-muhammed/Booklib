@@ -55,14 +55,14 @@
                         <div class="row text-muted"></div>
                         <div class="row">{{this.product.product_name}}</div>
                     </div>
-                    <div class="col"> <button onclick="changeQty('{{this._id}}','{{this.product._id}}','{{../user._id}}','{{this.product.quantity}}',-1)">-</button><a id="{{this.product._id}}" class="border">{{this.quantity}}</a><button onclick="changeQty('{{this._id}}','{{this.product._id}}','{{../user._id}}','{{this.product.quantity}}',1)">+</button> </div>
+                    <div class="col"> <a onclick="changeQty('{{this._id}}','{{this.product._id}}','{{../user._id}}','{{this.product.quantity}}',-1)">-</a><a id="{{this.product._id}}" class="border">{{this.quantity}}</a><a onclick="changeQty('{{this._id}}','{{this.product._id}}','{{../user._id}}','{{this.product.quantity}}',1)">+</a> </div>
                     <div hidden class="col" id="{{this.product._id}}price">{{this.product.price}}</div>
                     <div  class="col" id="{{this.product._id}}subtotal">{{Subtotal}} <span onclick="cartProductdelete('{{this._id}}','{{this.product._id}}')" class="close">&#10005;</span></div>
                 </div>
             </div>
             {{/each}}
             
-            <div class="back-to-shop"><a href="#">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+            <div class="back-to-shop"><a href="/category">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
         </div>
         <div class="col-md-4 summary">
             <div>
@@ -73,12 +73,12 @@
                 {{!-- <div class="col" style="padding-left:0;">SUB TOTAL</div>
                 <div id="total" class="col text-right">{{totalvalue}}</div> --}}
             </div>
-            <form>
-                {{!-- <p>SHIPPING</p> <select>
+            {{!-- <form>
+                <p>SHIPPING</p> <select>
                     <option class="text-muted">Standard-Delivery- &euro;5.00</option>
-                </select> --}}
+                </select>
                 <p></p> <input id="code" placeholder="Enter your code">
-            </form>
+            </form> --}}
             <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                 <div class="col">TOTAL PRICE</div>
                 <div  class="col text-right"><span id="total" >{{totalvalue}}</span></div>
@@ -94,6 +94,7 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="user/javascripts/jquery-3.2.1.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  {{!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
  <script>
       function changeQty(cartId,proId,userId,Stock,count){
          
@@ -121,7 +122,24 @@
           method:'post',
           success:(response)=>{
             if(response.removeProduct){
-              alert("deleted")
+            
+             const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              {{!-- toast.addEventListener('mouseenter', Swal.stopTimer) --}}
+              {{!-- toast.addEventListener('mouseleave', Swal.resumeTimer) --}}
+            }
+          })
+
+          Toast.fire({
+            icon: 'failure',
+            title: 'Product deleted from cart'
+          })
+
               location.reload()
             }
             else{

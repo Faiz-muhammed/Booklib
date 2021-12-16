@@ -71,13 +71,13 @@
                   <td>
                     <div class="product_count">
                     <div>
-                      <button
+                      <a
                         onclick="changeQty('{{this._id}}','{{this.product._id}}','{{../user._id}}','{{this.product.quantity}}',1)"
                         class="increase items-count"
                         type="button"
                       >
                         <i class="lnr lnr-chevron-up"></i>
-                      </button>
+                      </a>
                       <span 
                        
                         id="{{this.product._id}}"
@@ -86,13 +86,13 @@
                       >{{this.quantity}}</span>
                     </div>
 
-                      <button
+                      <a
                         onclick="changeQty('{{this._id}}','{{this.product._id}}','{{../user._id}}','{{this.product.quantity}}',-1)"
                         class="reduced items-count"
                         type="button"
                       >
                         <i class="lnr lnr-chevron-down"></i>
-                      </button>
+                      </a>
                     </div>
                   </td>
                   <td>

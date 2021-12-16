@@ -133,7 +133,7 @@ blockUser:(blockId)=>{
 blockorNot:(user)=>{
 
     return new Promise(async(resolve,reject)=>{
-         let blocked=null
+         let blocked=false
          blocked=await db.get().collection(collections.USER_COLLECTION).findOne({_id:objectId(user),blocked:true})
 
                 
@@ -566,7 +566,7 @@ getAddress:(addressId,userId)=>{
     })
 },
 
-placeOrder:(paymentMethod,userId,address,products,totalprice)=>{
+placeOrder:(paymentMethod,userId,address,products,totalprice,coupon)=>{
 
     return new Promise(async(resolve,reject)=>{
 
@@ -594,6 +594,9 @@ placeOrder:(paymentMethod,userId,address,products,totalprice)=>{
             totalAmount:totalprice,
             date: new Date().toLocaleString(),
             fulldate: new Date()
+        }
+        if(coupon){
+            await db.get().collection(collections.COUPON_COLLECTION).updateOne({couponName:coupon},{$push:{"radeemed":{user:objectId(userId)}}})
         }
 
         if(paymentMethod==='Cod'){
@@ -861,7 +864,11 @@ getMyorders:(userId)=>{
                $project:{
                 item:1,status:1,cancelled:1,quantity:1,date:1,Subtotal:1,product:{$arrayElemAt:['$product',0]}
                }
+           },
+           {
+               $sort:{date:1}
            }
+
        ]).toArray()
         resolve(myOrders)
     })
@@ -1019,5 +1026,20 @@ buyNowplaceOrder:(paymentMethod,userId,address,productDet,totalprice,coupon)=>{
     })
 
 },
+
+// login block check
+
+loginBlockcheck:(email)=>{
+
+    return new Promise(async(resolve,reject)=>{
+         let blocked=false
+         blocked=await db.get().collection(collections.USER_COLLECTION).findOne({Email:email,blocked:true})
+
+                
+                resolve(blocked)
+            
+    })
+},
+
 
 }

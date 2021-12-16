@@ -1,6 +1,6 @@
 <section class="vh-100" style="background-color: #cfcfcfe5;"></section>
 <div class="form-group bg-light" style="width: 30%;position:fixed;top:26%;right:35%;border-radius: 1rem;">
-<form action="/phonenumberpage" method="post" class="p-2" style="" >
+<form action="/phonenumberpage" method="post" id="phoneNumber" class="p-2" style="" >
 
 
     <label class="mt-2" style="font-size: 1.4rem;" > <span style="font-size: 1rem;"></span></label>
@@ -8,13 +8,35 @@
     {{#if phonenumberExistError}}
      <p class="text-danger d-flex justify-content-center">Mobile number not registered</p>
     {{/if}}
-    
-    <input type="number" class="form-control mt-3"  name="number">
+
+    <input type="text" class="form-control mt-3" name="number" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"/>
     <div class="d-flex justify-content-center">
       <button type="submit" style="background-color: #508bfc;width:80%;"  class="btn mt-4  mb-5 text-light">Continue</button>
       </div>
-  <p style="display:inline-block">don't have an account</p>  <a href="/register" class="text-primary">Create An Account</a>
+  {{!-- <p style="display:inline-block">don't have an account</p>  <a href="/register" class="text-primary">Create An Account</a> --}}
 </form>
 
  </div>
  </section>
+
+  <script src="/user/javascripts/jquery-3.2.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+
+<script>
+  $("#phoneNumber").validate({
+  
+    rules:{
+        number:{
+            required:true,
+            minlength:10
+        }
+    },
+    messages:{
+      
+        number:{
+            required: 'Please enter a mobile number'
+            
+        }
+    }
+});
+</script>

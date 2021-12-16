@@ -5,8 +5,9 @@
     <form
       class="forms-sample"
       enctype="multipart/form-data"
-      action="/admin/editprod/{{product._id}}/"
+      action="/admin/editprod/{{product._id}}"
       method="post"
+      id="addnewpro"
     >
       <div class="form-group row">
         <label
@@ -78,8 +79,9 @@
         >ISBN</label>
         <div class="col-sm-9">
           <input
-            type="number"
+            type="text"
             name="isbn"
+            oninput="this.value = this.value.replace(/[^0-9-]/g, '').replace(/(\..*)\./g, '$1');"
             class="form-control"
             id="exampleInputConfirmPassword2"
             value="{{product.isbn}}"
@@ -93,8 +95,9 @@
         >QUANTITY</label>
         <div class="col-sm-9">
           <input
-            type="number"
+            type="text"
             name="quantity"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
             class="form-control"
             id="exampleInputPassword2"
             value="{{product.quantity}}"
@@ -108,9 +111,10 @@
         >PRICE</label>
         <div class="col-sm-9">
           <input
-            type="number"
+            type="text"
             name="price"
             class="form-control"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
             id="exampleInputPassword2"
             value="{{product.price}}"
           />
@@ -188,7 +192,7 @@
      
 
       <button id="confirm-btn" type="submit" class="btn btn-primary mr-2">Submit</button>
-      <button class="btn btn-light">Cancel</button>
+      {{!-- <button class="btn btn-light">Cancel</button> --}}
     </form>
   </div>
 </div>
@@ -373,5 +377,81 @@ if (!allowedExtensions.exec(filePath)) {
         });
     }
 }
+
+
+{{!-- form validation --}}
+
+$("#addnewpro").validate({
+    rules:{
+      product_name:{
+            required:true
+        },
+        category:{
+            required:true
+            
+        },
+        author:{
+            required:true,
+
+        },
+        
+        publisher:{
+            required:true,
+        },
+        isbn:{
+            required:true
+        },
+        quantity:{
+          required:true,
+          number:true
+        },
+        price:{
+          required:true,
+          number:true
+        },
+        description:{
+          required:true
+        }
+        
+    },
+    messages:{
+      product_name:{
+            required: 'Product name is required'
+        },
+        category:{
+            required: 'Category is required'
+        },
+        author:{
+            required:'Author name is required'
+
+        },
+        publisher:{
+            required: 'Publisher name is required'
+        },
+        isbn:{
+            required: 'isbn  is required'
+        },
+        quantity:{
+          required:'Product quantity is required'
+        
+        },
+        price:{
+          required:'Price is required'
+        
+        },
+        description:{
+          required:'Description is required'
+        }
+    
+        
+       
+    },
+    highlight: function (element) {
+                $(element).parent().addClass('error')
+            },
+            unhighlight: function (element) {
+                $(element).parent().removeClass('error')
+            }
+});
 
 </script>

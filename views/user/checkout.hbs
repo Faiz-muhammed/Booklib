@@ -173,53 +173,44 @@
        
       </div>
       <div class="card-body">
-        <form action="/addAddrcheckout" method="post">
+        <form action="/addAddrcheckout" id="addaddress" method="post">
           <!-- 2 column grid layout with text inputs for the first and last names -->
            <div class="form-outline mb-4">
+             <label class="form-label"  for="form7Example3">Full name</label>
             <input type="text" id="form7Example3" name="name" class="form-control" />
-            <label class="form-label"  for="form7Example3">Full name</label>
           </div>
             
 
           <!-- Text input -->
           <div class="form-outline mb-4">
-            <input type="text" id="form7Example3" name="house" class="form-control" />
             <label class="form-label" for="form7Example3">House/Building number</label>
+            <input type="text" id="form7Example9" name="house" class="form-control" />
           </div>
 
           <!-- Text input -->
           <div class="form-outline mb-4">
-            <input type="text" id="form7Example4" name="street" class="form-control" />
             <label class="form-label" for="form7Example4">Street/locality</label>
+            <input type="text" id="form7Example4" name="street" class="form-control" />
           </div>
 
           <div class="form-outline mb-4">
-            <input type="text" id="form7Example4" name="district" class="form-control" />
             <label class="form-label" for="form7Example4">District/City</label>
+            <input type="text" id="form7Example7" name="district" class="form-control" />
           </div>
 
            <div class="form-outline mb-4">
-            <input type="text" id="form7Example4" name="state" class="form-control" />
-            <label class="form-label" for="form7Example4">State</label>
+             <label class="form-label" for="form7Example4">State</label>
+            <input type="text" id="form7Example8" name="state" class="form-control" />
           </div>
-
-          <!-- Email input -->
-          
-
           <!-- Number input -->
           <div class="form-outline mb-4">
-            <input type="number" id="form7Example6" name="phoneNumber" class="form-control" />
             <label class="form-label" for="form7Example6">Phone</label>
+            <input type="number" id="form7Example6" minlength="10" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" name="phoneNumber" class="form-control" />
           </div>
-
-          
-
           <!-- Checkbox -->
           {{!-- <div class="form-check d-flex justify-content-center mb-2">
            <input class="btn btn-primary" type="submit" value="Submit">
-           
           </div> --}}
-       
       </div>
       <div class="modal-footer">
         {{!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
@@ -322,10 +313,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/theme.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
     <script>
         let orderedAddress;
         let paymentType;
         var discounted=false;
+        let code;
         let grandtotal={{total}}
        
     function paymentMethod(payMethod){
@@ -354,7 +348,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
        else{
         $.ajax({
           
-         url:'/placeOrder?deliveryAddress='+orderedAddress+"&paymentMethod="+paymentType+"&userId="+userId+"&couponTotal="+discounted,
+         url:'/placeOrder?deliveryAddress='+orderedAddress+"&paymentMethod="+paymentType+"&userId="+userId+"&couponTotal="+discounted+"&coupon="+code,
          method:'get',
          success:(response)=>{
 
@@ -434,11 +428,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
     function couponApply(){
      
-      var code=document.getElementById('couponCode').value
+       code=document.getElementById('couponCode').value
       {{!-- var subtotal= --}}
 
       code=code.toUpperCase()
-      alert(code)
 
        $.ajax({
          url:'/CheckCoupon',
@@ -449,7 +442,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
              document.getElementById('couponNotexist').innerHTML="Coupon applied succesfully.";
              document.getElementById('couponNotexist').style.color="green";
             var total=document.getElementById('total').innerHTML
-            alert(total)
              var couponTotal=grandtotal*response.justradeemed.Discount/100;
              discounted=grandtotal-couponTotal;
             document.getElementById('total').innerHTML=discounted;
@@ -470,4 +462,68 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
          }
          })
     }
+
+
+
+    {{!-- address form validation --}}
+$("#addaddress").validate({
+    rules:{
+      name:{
+            required:true
+        },
+        house:{
+            required:true
+            
+        },
+        street:{
+            required:true
+
+        },
+        
+        district:{
+            required:true
+        },
+      state:{
+            required:true
+        },
+        phoneNumber:{
+          required:true,
+        }
+        
+        
+    },
+    messages:{
+        name:{
+            required: 'fullname is required'
+        },
+        house:{
+            required: 'House no. is required'
+        },
+        street:{
+            required:'Street name is required'
+
+        },
+        district:{
+            required: 'District is required'
+        },
+        state:{
+            required: 'state is required'
+        },
+         phoneNumber:{
+          required:'Phone number is required'
+        
+        }
+        
+
+
+
+    },
+    highlight: function (element) {
+                $(element).parent().addClass('error')
+            },
+            unhighlight: function (element) {
+                $(element).parent().removeClass('error')
+            }
+});
+
     </script>

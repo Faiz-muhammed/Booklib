@@ -8,6 +8,9 @@
         <div class="panel-heading">
         <h2 class="panel-title text-dark">Product Offer</h2><br>
         </div>
+        {{#if proOfferExist}}
+         <h5 class="text-danger">Offer already exist for this product!</h5>
+         {{/if}}
         <div class="panel-body">
           <div class="form-group">
             <label class="col-sm-2 control-label text-dark">Product</label>
@@ -23,7 +26,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label text-dark">Discount</label>
             <div class="col-sm-10">
-              <input name="Discount" type="number" class="form-control">
+              <input name="Discount" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" class="form-control">
             </div>
           </div>
           <div class="form-group">
@@ -54,7 +57,7 @@
                     <h4 class="card-title">RUNNUNG PRODUCT OFFER</h4>
                     {{!-- <p class="card-description"> Add class <code>.table-bordered</code> --}}
                     </p>
-                    <table class="table table-bordered">
+                    <table id="prooffTable" class="table table-bordered">
                       <thead>
                         <tr>
                           <th> sl.no </th>
@@ -98,17 +101,18 @@
 <script src="/user/javascripts/jquery-3.2.1.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js" defer></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
 $("#proOffer").validate({
     rules:{
-     offerCategory:{
+     offerProduct:{
             required:true
         },
         Discount:{
             required:true,
-            number:true,
             max:99,
             min:1
             
@@ -125,7 +129,7 @@ $("#proOffer").validate({
          
     },
     messages:{
-        offerCategory:{
+        offerProduct:{
             required: 'Product is required'
         },
         Discount:{
@@ -216,4 +220,14 @@ function dateValid(){
     {{!-- alert(maxDate); --}}
     $('#endDate').attr('min', dtToday);
 };
+
+{{!-- data table  --}}
+
+$(document).ready( function () {
+    $('#prooffTable').DataTable();
+} );
+
+$('#prooffTable tbody tr').each(function (idx){
+        $(this).children("td:eq(0)").html(idx+1)
+      })
 </script>

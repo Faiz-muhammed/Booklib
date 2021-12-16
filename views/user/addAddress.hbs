@@ -15,31 +15,36 @@
         <form action="/Addressdata" id="addaddress" method="post">
           <!-- 2 column grid layout with text inputs for the first and last names -->
            <div class="form-outline mb-4">
+             <label class="form-label"  for="form7Example3">Full name</label>
             <input type="text" id="form7Example3" name="name" class="form-control" />
-            <label class="form-label"  for="form7Example3">Full name</label>
+            
           </div>
             
 
           <!-- Text input -->
           <div class="form-outline mb-4">
-            <input type="text" id="form7Example3" name="house" class="form-control" />
             <label class="form-label" for="form7Example3">House/Building number</label>
+            <input type="text" id="form7Example3" name="house" class="form-control" />
+            
           </div>
 
           <!-- Text input -->
           <div class="form-outline mb-4">
-            <input type="text" id="form7Example4" name="street" class="form-control" />
             <label class="form-label" for="form7Example4">Street/locality</label>
+            <input type="text" id="form7Example4" name="street" class="form-control" />
+            
           </div>
 
           <div class="form-outline mb-4">
-            <input type="text" id="form7Example4" name="district" class="form-control" />
             <label class="form-label" for="form7Example4">District/City</label>
+            <input type="text" id="form7Example4" name="district" class="form-control" />
+            
           </div>
 
            <div class="form-outline mb-4">
+             <label class="form-label" for="form7Example4">State</label>
             <input type="text" id="form7Example4" name="state" class="form-control" />
-            <label class="form-label" for="form7Example4">State</label>
+            
           </div>
 
           <!-- Email input -->
@@ -47,8 +52,9 @@
 
           <!-- Number input -->
           <div class="form-outline mb-4">
-            <input type="number" id="form7Example6" name="phoneNumber" class="form-control" />
             <label class="form-label" for="form7Example6">Phone</label>
+            <input type="text" id="form7Example6" name="phoneNumber" minlength="10" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" />
+            
           </div>
 
           
@@ -94,7 +100,6 @@ $("#addaddress").validate({
         },
         phoneNumber:{
           required:true,
-          number:true
         }
         
         

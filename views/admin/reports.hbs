@@ -7,7 +7,7 @@
   <div class="card-body">
     <h4 class="card-title">DAILY SALES REPORT</h4>
    
-   <table id="example" class="table table-striped display nowrap" style="width:100%">  
+   <table id="dailySales" class="table table-striped display nowrap" style="width:100%">  
         <thead>
             <tr class="text-center">
                 <th>Sl.no</th>
@@ -52,11 +52,16 @@
 
         <script>
           $(document).ready(function(){
-          $('#example').DataTable({
+          $('#dailySales').DataTable({
         dom:'Bfrtip',
         buttons:[
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
 });
-        </script>
+
+$('#dailySales tbody tr').each(function (idx){
+        $(this).children("td:eq(0)").html(idx+1)
+      })
+
+ </script>

@@ -10,25 +10,15 @@
         </div>
         <div class="panel-body">
           <div class="form-group">
-            <label class="col-sm-2 control-label text-dark">Add coupons</label>
+            <label class="col-sm-2 control-label text-dark">Coupon name</label>
             <div class="col-sm-10">
-              {{!-- <select name="offerCategory" class="form-control">
-                <option selected="">select category</option>
-                {{#each categories}}
-                <option>{{this.categoryname}}</option>
-                {{/each}} --}}
-                {{!-- <option>Canada</option>
-                <option>Denmark</option>
-                <option>Estonia</option>
-                <option>France</option> --}}
-              {{!-- </select> --}}
               <input name="couponName" type="text" class="form-control">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label text-dark">Discount</label>
             <div class="col-sm-10">
-              <input name="Discount" type="number" class="form-control">
+              <input name="Discount" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" class="form-control">
             </div>
           </div>
           <div class="form-group">
@@ -59,7 +49,7 @@
                     <h4 class="card-title">RUNNING COUPONS</h4>
                     {{!-- <p class="card-description"> Add class <code>.table-bordered</code> --}}
                     </p>
-                    <table class="table table-bordered">
+                    <table id="couponTable" class="table table-bordered">
                       <thead>
                         <tr>
                           <th> sl.no </th>
@@ -103,6 +93,8 @@
 <script src="/user/javascripts/jquery-3.2.1.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js" defer></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
@@ -113,7 +105,6 @@ $("#coupons").validate({
         },
         Discount:{
             required:true,
-            number:true,
             max:99,
             min:1
             
@@ -223,4 +214,15 @@ function dateValid(){
     {{!-- alert(maxDate); --}}
     $('#txtDateEnd').attr('min', dtToday);
 };
+
+
+{{!-- data table  --}}
+
+$(document).ready( function () {
+    $('#couponTable').DataTable();
+} );
+
+$('#couponTable tbody tr').each(function (idx){
+        $(this).children("td:eq(0)").html(idx+1)
+      })
 </script>

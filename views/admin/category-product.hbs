@@ -29,7 +29,7 @@
   <div class="card-body">
     <h4 class="card-title">CATEGORIES</h4>
 
-    <table class="table">
+    <table id="categoryTable" class="table">
       <thead>
         <tr>
           <th>Sl.no</th>
@@ -52,7 +52,10 @@
 </div>
 
    <script src="/user/javascripts/jquery-3.2.1.min.js"></script>
-              <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js" defer></script>
 {{!-- modal --}}
  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
@@ -110,4 +113,14 @@ $("#catadd").validate({
 
     }
 });
+
+{{!-- data table  --}}
+
+$(document).ready( function () {
+    $('#categoryTable').DataTable();
+} );
+
+$('#categoryTable tbody tr').each(function (idx){
+        $(this).children("td:eq(0)").html(idx+1)
+      })
 </script>

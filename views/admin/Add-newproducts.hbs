@@ -78,8 +78,9 @@
         >ISBN</label>
         <div class="col-sm-9">
           <input
-            type="number"
+            type="text"
             name="isbn"
+            oninput="this.value = this.value.replace(/[^0-9-]/g, '').replace(/(\..*)\./g, '$1');"
             class="form-control"
             id="exampleInputConfirmPassword2"
             placeholder="Enter isbn id"
@@ -93,10 +94,10 @@
         >QUANTITY</label>
         <div class="col-sm-9">
           <input
-            type="number"
+            type="text"
             name="quantity"
             class="form-control"
-            id="inputBox"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
             placeholder="Enter quantity"
           />
         </div>
@@ -108,10 +109,10 @@
         >PRICE</label>
         <div class="col-sm-9">
           <input
-            type="number"
+            type="text"
             name="price"
             class="form-control"
-            id="inputBox1"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
             placeholder="Product price in rupees"
           />
         </div>
@@ -291,7 +292,7 @@ function fileValidation1() {
     var fileInput = document.getElementById('file1');
 
     var filePath = fileInput.value;
-    var allowedExtensions = /(\.jpg)$/i;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
     if (!allowedExtensions.exec(filePath)) {
         alert('Please upload file having extensions .jpeg only.');
         fileInput.value = '';
@@ -439,38 +440,5 @@ function fileValidation3() {
     }
 }
 // preview 3 end
-
-
-
-
-var inputBox = document.getElementById("inputBox");
-
-var invalidChars = [
-  "-",
-  "+",
-  "e",
-];
-
-inputBox.addEventListener("keydown", function(e) {
-  if (invalidChars.includes(e.key)) {
-    e.preventDefault();
-  }
-});
-
-
-var inputBox1 = document.getElementById("inputBox1");
-
-var invalidChars1 = [
-  "-",
-  "+",
-  "e",
-];
-
-inputBox1.addEventListener("keydown", function(e) {
-  if (invalidChars1.includes(e.key)) {
-    e.preventDefault();
-  }
-});
-
 
 </script>

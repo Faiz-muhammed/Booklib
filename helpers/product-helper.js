@@ -86,8 +86,8 @@ updateProductdetails:(proId,proDetail)=>{
       author:proDetail.author,
       publisher:proDetail.publisher,
       isbn:proDetail.isbn,
-      quantity:proDetail.quantity,
-      price:proDetail.price,
+      quantity:parseInt(proDetail.quantity),
+      price:parseInt(proDetail.price),
       description:proDetail.description
 
     }}).then((status)=>{
@@ -525,7 +525,7 @@ deleteProdoffer:(ProOffer)=>{
 
     await db.get().collection(collections.PRODUCT_OFFER).deleteOne({_id:objectId(ProOffer.id)}).then(async(result)=>{
 
-      let items=await db.get().collection(collections.PRODUCT_COLLECTION).find({product_name:ProOffer.ProName})
+      let items=await db.get().collection(collections.PRODUCT_COLLECTION).findOne({product_name:ProOffer.proName})
       //  console.log("fg",items);
       // await items.map((product)=>{
 
@@ -657,7 +657,7 @@ checkOfferExpiry:(today)=>{
             db.get().collection(collections.PRODUCT_COLLECTION).updateOne({_id:objectId(product._id)},{$set:{price:shiftBack,actualPrice:false}})
           })
          
-          await db.get().collection(collections.PRODUCT_OFFER).deleteOne({_id:objectId(ProOffers._id)})
+          await db.get().collection(collections.PRODUCT_OFFER).deleteOne({_id:objectId(proOffers._id)})
         
       })
       resolve()
@@ -907,9 +907,47 @@ removeWish:(itemId,user)=>{
       })
       resolve()
   })
+},
+
+
+// search product
+
+searchProducts:(payload)=>{
+
+  return new Promise(async(resolve,reject)=>{
+
+    let products=await db.get().collection(collections.PRODUCT_COLLECTION).find(
+      {
+        product_name:
+              {
+                $regex: new RegExp('^'+payload+'.*','i')
+              }
+      }).toArray()
+      resolve(products)
+  })
+},
+
+
+// category offer check
+
+catOffexist:(catName)=>{
+
+  return new Promise(async(resolve,reject)=>{
+
+    let Exist=db.get().collection(collections.CATEGORY_OFFER).findOne({offerCategory:catName})
+    resolve(Exist)
+    
+  })
+},
+
+// product offer exist
+
+proOffexist:(proName)=>{
+  return new Promise(async(resolve,reject)=>{
+   
+    let Exist=db.get().collection(collections.PRODUCT_OFFER).findOne({offerProduct:proName})
+    resolve(Exist)
+  })
 }
-
-
-
 
 };
