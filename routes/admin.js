@@ -663,6 +663,22 @@ router.get("/reportsPage",async(req,res)=>{
 
 })
 
+// user report
+
+// router.get("/userReport",async(req,res)=>{
+  
+//   if(req.session.adminloggedin){
+
+//     console.log("kolp");
+//    let user=await productHelper.getUserReport()
+//   res.render("admin/userReport",{admin:true,user})
+
+//   }
+//   else{
+//     res.redirect("/admin") 
+//   }
+// })
+
 
 
 

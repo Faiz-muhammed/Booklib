@@ -948,6 +948,17 @@ proOffexist:(proName)=>{
     let Exist=db.get().collection(collections.PRODUCT_OFFER).findOne({offerProduct:proName})
     resolve(Exist)
   })
-}
+},
+
+// user activity report
+
+// getUserReport:()=>{
+//   return new Promise((resolve,reject)=>{
+
+//     let user=db.get().collection(collections.USER_COLLECTION).aggregate([
+
+//     ])
+//   })
+// }
 
 };
