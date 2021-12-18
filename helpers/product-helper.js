@@ -772,11 +772,19 @@ checkCoupon:(code,user)=>{
 
 // sales report
 
-getSalereport:()=>{
+getSalereport:(startDate,endDate)=>{
 
   return new Promise(async(resolve,reject)=>{
 
     let sale=await db.get().collection(collections.ORDER_COLLECTION).aggregate([
+      {
+       $match:{
+         fulldate:{
+           $lte:endDate,
+           $gte:startDate
+         }
+       }
+      },
       {
         $unwind:"$Products"
       },
@@ -950,6 +958,30 @@ proOffexist:(proName)=>{
   })
 },
 
+// most preferred payment method
+
+preferredPayment:()=>{
+  
+  return new Promise(async(resolve,reject)=>{
+
+    let methods=await db.get().collection(collections.ORDER_COLLECTION).aggregate([
+      {
+        $group:{
+          _id:"$PaymentMethod",
+          count:{$sum:1}
+        }
+       
+      },
+      {
+        $sort:{count:-1}
+      }
+
+    ]).toArray()
+    console.log("nm",methods);
+    resolve(methods)
+  })
+}
+
 // user activity report
 
 // getUserReport:()=>{
@@ -960,5 +992,6 @@ proOffexist:(proName)=>{
 //     ])
 //   })
 // }
+
 
 };

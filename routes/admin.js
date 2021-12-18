@@ -13,6 +13,7 @@ var adminlogerr=false;
 var categoryExisterror=false;
 var catOfferExist=false;
 var proOfferExist=false;
+let sale=false;
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -39,6 +40,7 @@ router.get("/login",async function(req, res, next) {
     let proCount=await productHelper.getproductCount()
     let dailySales=await productHelper.getdailySales()
     let bestSell=await productHelper.getBestSelling()
+    let preferedPay=await productHelper.preferredPayment()
     // let DailySale=await productHelper.getDailysale()
     
 
@@ -52,7 +54,7 @@ router.get("/login",async function(req, res, next) {
     dailyAmount=JSON.stringify(dailyAmount)
     console.log(dailyAmount);
         
-    res.render("admin/dashboard",{admin:true,orderCount,usercount,revenue,proCount,dailyAmount,bestSell});
+    res.render("admin/dashboard",{admin:true,orderCount,usercount,revenue,proCount,dailyAmount,bestSell,preferedPay});
   }
   else{
     res.redirect('/admin')
@@ -653,7 +655,7 @@ router.get("/reportsPage",async(req,res)=>{
   if(req.session.adminloggedin){
 
     console.log("kolp");
-   let sale=await productHelper.getSalereport()
+  
   res.render("admin/reports",{admin:true,sale})
 
   }
@@ -662,6 +664,17 @@ router.get("/reportsPage",async(req,res)=>{
   }
 
 })
+
+router.post("/dailySalesReport",async(req,res)=>{
+
+   let startDate= new Date(req.body.startDate)
+   let endDate=new Date (req.body.endDate)
+   sale=await productHelper.getSalereport(startDate,endDate)
+   res.redirect("/admin/reportsPage")
+
+})
+
+
 
 // user report
 
